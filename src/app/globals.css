@@ -130,8 +130,49 @@
   }
 }
 
-/* ── Custom utilities ─────────────────────────────────────── */
+/* ── Shimmer animation for skeleton loaders ──────────────────── */
+@keyframes shimmer {
+  0%   { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.5; }
+}
+
+@keyframes skeleton-bar-rise {
+  from { transform: scaleY(0); opacity: 0; }
+  to   { transform: scaleY(1); opacity: 1; }
+}
+
+.shimmer {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    transparent 35%,
+    oklch(1 0 0 / 8%) 50%,
+    transparent 65%,
+    transparent 100%
+  );
+  animation: shimmer 1.6s ease-in-out infinite;
+  will-change: transform;
+}
+
+.skeleton-bar {
+  transform-origin: bottom;
+  animation: skeleton-bar-rise 0.5s ease-out both;
+}
+
 @layer utilities {
+  /* Promote animated elements to their own compositor layer */
+  .motion-safe-gpu {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+  }
+
   .gradient-text {
     @apply bg-clip-text text-transparent;
     background-image: linear-gradient(135deg, #fff 0%, oklch(0.72 0.19 277.1) 60%, oklch(0.65 0.22 200) 100%);

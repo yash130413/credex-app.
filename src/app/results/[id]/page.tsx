@@ -6,6 +6,7 @@ import { getPublicAuditById } from "@/lib/db/audits";
 import { ResultsHero } from "@/components/results/results-hero";
 import { ResultsFilters } from "@/components/results/results-filters";
 import { ResultsLeadCapture } from "@/components/results/results-lead-capture";
+import { AlreadyOptimizedState } from "@/components/results/already-optimized-state";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { PublicAuditSafe } from "@/types/database";
 import styles from "@/components/components.module.css";
@@ -76,6 +77,7 @@ export default async function ResultsPage({ params }: Props) {
   }
 
   const providers = [...new Set(audit.recommendations.map((r) => r.provider))];
+  const providerCount = providers.length || 1;
 
   const providerSummary = providers.map((p) => {
     const recs = audit.recommendations.filter((r) => r.provider === p);
@@ -174,19 +176,24 @@ export default async function ResultsPage({ params }: Props) {
         )}
 
         {/* ── Recommendations ──────────────────────────────────────────────── */}
-        <div className="flex flex-col gap-4">
-          <div className="flex items-center justify-between gap-4">
-            <h2 className="text-base font-semibold">
-              Recommendations
-              <span className="ml-2 text-sm font-normal text-muted-foreground">
-                {audit.recommendations.length} total
-              </span>
-            </h2>
+        {audit.recommendations.length === 0 ? (
+          <AlreadyOptimizedState
+            score={audit.optimization_score}
+            providerCount={providerCount}
+          />
+        ) : (
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center justify-between gap-4">
+              <h2 className="text-base font-semibold">
+                Recommendations
+                <span className="ml-2 text-sm font-normal text-muted-foreground">
+                  {audit.recommendations.length} total
+                </span>
+              </h2>
+            </div>
+            <ResultsFilters recommendations={audit.recommendations} />
           </div>
-
-          {/* Client filter + list */}
-          <ResultsFilters recommendations={audit.recommendations} />
-        </div>
+        )}
 
         {/* ── Footer ───────────────────────────────────────────────────────── */}
         <div className="border-t border-white/[0.06] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
