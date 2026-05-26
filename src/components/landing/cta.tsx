@@ -47,13 +47,13 @@ export function CTA() {
                     <ArrowRight className="w-4 h-4" />
                   </Button>
                 </Link>
-                <Link href="/login">
+                <Link href="https://credex-app-six.vercel.app/" target="_blank" rel="noopener noreferrer">
                   <Button
                     size="lg"
                     variant="outline"
                     className="border-white/10 bg-white/5 hover:bg-white/10 text-foreground h-12 px-8"
                   >
-                    Sign in
+                    View live demo
                   </Button>
                 </Link>
               </div>

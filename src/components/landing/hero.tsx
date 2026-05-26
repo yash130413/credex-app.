@@ -79,13 +79,13 @@ export function Hero() {
               <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
-          <Link href="/login">
+          <Link href="https://credex-app-six.vercel.app/" target="_blank" rel="noopener noreferrer">
             <Button
               size="lg"
               variant="outline"
               className="gap-2 font-medium px-6 h-11 text-sm border-white/10 bg-white/5 hover:bg-white/10 text-foreground"
             >
-              View dashboard
+              View live demo
             </Button>
           </Link>
         </motion.div>
