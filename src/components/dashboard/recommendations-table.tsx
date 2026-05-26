@@ -5,6 +5,7 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { AuditRecommendation, AuditPriority, AuditProvider } from "@/types/audit-engine";
+import styles from "@/components/components.module.css";
 
 // ── Visual config ─────────────────────────────────────────────────────────────
 const PRIORITY_STYLES: Record<AuditPriority, string> = {
@@ -81,8 +82,8 @@ function RecommendationRow({ rec }: { rec: AuditRecommendation }) {
           <div className="flex items-center gap-2">
             <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
               <div
-                className={cn("h-full rounded-full transition-all", CONFIDENCE_COLOR(rec.confidenceScore))}
-                style={{ width: `${rec.confidenceScore}%` }}
+                className={cn("h-full rounded-full transition-all", CONFIDENCE_COLOR(rec.confidenceScore), styles.confidenceBar)}
+                style={{ "--bar-width": `${rec.confidenceScore}%` } as React.CSSProperties}
               />
             </div>
             <span className="text-xs text-muted-foreground w-7 text-right tabular-nums">

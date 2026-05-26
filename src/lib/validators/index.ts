@@ -30,6 +30,22 @@ export const auditSchema = z.object({
   endDate: z.string().min(1, "End date is required"),
 });
 
+export const leadCaptureSchema = z.object({
+  email: z.string().email("Enter a valid email address"),
+  company: z.string().min(1, "Company name is required").max(100),
+  role: z.string().min(1, "Select your role"),
+  teamSize: z.string().min(1, "Select your team size"),
+  // Honeypot field — must always be empty. Validated server-side via isHoneypotTripped().
+  // Included here so Zod doesn't strip it before the route handler can inspect it.
+  website: z.string().optional(),
+});
+
+// LeadCaptureInput excludes the honeypot from the form type — the field is
+// registered directly in the form component and never part of business logic.
+export type LeadCaptureInput = Omit<z.infer<typeof leadCaptureSchema>, "website"> & {
+  website?: string;
+};
+
 export type LoginInput = z.infer<typeof loginSchema>;
 export type SignupInput = z.infer<typeof signupSchema>;
 export type IntegrationInput = z.infer<typeof integrationSchema>;

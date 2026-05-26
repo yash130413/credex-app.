@@ -5,6 +5,7 @@ import { TrendingDown, AlertTriangle, Layers } from "lucide-react";
 import { AnimatedCounter } from "@/components/shared/animated-counter";
 import { formatCurrency } from "@/lib/utils";
 import type { AuditEngineResult } from "@/types/audit-engine";
+import styles from "@/components/components.module.css";
 
 // ── Radial gauge ──────────────────────────────────────────────────────────────
 function OptimizationGauge({ score }: { score: number }) {
@@ -71,18 +72,18 @@ function HeroStat({
     >
       {/* Subtle top-left glow */}
       <div
-        className="absolute -top-8 -left-8 w-32 h-32 rounded-full pointer-events-none"
-        style={{ background: `radial-gradient(circle, ${iconColor}18 0%, transparent 70%)` }}
+        className={`absolute -top-8 -left-8 w-32 h-32 rounded-full pointer-events-none ${styles.iconGlow}`}
+        style={{ "--icon-color": iconColor } as React.CSSProperties}
       />
       <div className="flex items-center justify-between">
         <span className="text-xs font-medium text-muted-foreground uppercase tracking-widest">
           {label}
         </span>
         <span
-          className="w-8 h-8 rounded-lg flex items-center justify-center"
-          style={{ background: `${iconColor}15` }}
+          className={`w-8 h-8 rounded-lg flex items-center justify-center ${styles.iconBg}`}
+          style={{ "--icon-color": iconColor } as React.CSSProperties}
         >
-          <Icon className="w-4 h-4" style={{ color: iconColor }} />
+          <Icon className={`w-4 h-4 ${styles.iconColor}`} style={{ "--icon-color": iconColor } as React.CSSProperties} />
         </span>
       </div>
       <div className="flex flex-col gap-1">

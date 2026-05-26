@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { toast } from "sonner";
@@ -9,8 +10,10 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { signupSchema, type SignupInput } from "@/lib/validators";
+import { createClient } from "@/lib/supabase/client";
 
 export function SignupForm() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -18,8 +21,15 @@ export function SignupForm() {
   } = useForm<SignupInput>({ resolver: zodResolver(signupSchema) });
 
   const onSubmit = async (data: SignupInput) => {
-    await new Promise((r) => setTimeout(r, 800));
-    toast.success(`Account created for ${data.email}`);
+    const supabase = createClient();
+    const { error } = await supabase.auth.signUp({
+      email: data.email,
+      password: data.password,
+      options: { data: { full_name: data.name } },
+    });
+    if (error) { toast.error(error.message); return; }
+    toast.success("Check your email to confirm your account.");
+    router.push("/login");
   };
 
   return (

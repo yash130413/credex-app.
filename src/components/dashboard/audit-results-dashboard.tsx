@@ -10,6 +10,7 @@ import { formatCurrency, cn } from "@/lib/utils";
 import { useAuditForm } from "@/hooks/use-audit-form";
 import { useAuditResults } from "@/hooks/use-audit-results";
 import type { AuditEngineResult, AuditPriority, AuditProvider, WorkspaceMetrics } from "@/types/audit-engine";
+import styles from "@/components/components.module.css";
 
 const PRIORITY_ORDER: AuditPriority[] = ["Critical", "High", "Medium", "Low"];
 
@@ -87,13 +88,16 @@ export function AuditResultsDashboard({ result, workspaces }: Props) {
           >
             <div className="flex items-center gap-2">
               <span
-                className="w-2 h-2 rounded-full"
-                style={{ background: PROVIDER_COLORS[provider] }}
+                className={`w-2 h-2 rounded-full ${styles.dotBg}`}
+                style={{ "--dot-color": PROVIDER_COLORS[provider] } as React.CSSProperties}
               />
               <span className="text-xs font-medium">{provider}</span>
             </div>
             <span className="text-lg font-bold tabular-nums">{count}</span>
-            <span className="text-xs font-medium" style={{ color: PROVIDER_COLORS[provider] }}>
+            <span
+              className={`text-xs font-medium ${styles.dotColor}`}
+              style={{ "--dot-color": PROVIDER_COLORS[provider] } as React.CSSProperties}
+            >
               {formatCurrency(savings)}/mo
             </span>
           </button>

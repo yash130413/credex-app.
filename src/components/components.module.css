@@ -1,0 +1,44 @@
+/* Used by components that receive a dynamic accent color via --icon-color CSS custom property.
+   The component sets style="--icon-color: #hex" and applies these classes. */
+
+.iconGlow {
+  background: radial-gradient(circle, color-mix(in srgb, var(--icon-color) 9%, transparent) 0%, transparent 70%);
+}
+
+.iconBg {
+  background: color-mix(in srgb, var(--icon-color) 8%, transparent);
+}
+
+.iconColor {
+  color: var(--icon-color);
+}
+
+/* Used by provider dot / savings text that receive a dynamic --dot-color */
+.dotBg {
+  background-color: var(--dot-color);
+}
+
+.dotColor {
+  color: var(--dot-color);
+}
+
+/* Used by recommendation cards that receive a dynamic --glow-color */
+.cardGlow {
+  background: linear-gradient(135deg, var(--glow-color) 0%, oklch(0.13 0.015 277) 45%);
+}
+
+/* Used by the score ring span that receives a dynamic --score-color */
+.scoreColor {
+  color: var(--score-color);
+}
+
+/* Used by the score ring SVG wrapper — size driven by --ring-size */
+.scoreRingWrapper {
+  width: var(--ring-size);
+  height: var(--ring-size);
+}
+
+/* Confidence bar width driven by --bar-width */
+.confidenceBar {
+  width: var(--bar-width);
+}

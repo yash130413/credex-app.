@@ -6,6 +6,7 @@ import { ChevronDown, ArrowRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { AuditRecommendation, AuditPriority, AuditProvider } from "@/types/audit-engine";
+import styles from "@/components/components.module.css";
 
 // ── Config ────────────────────────────────────────────────────────────────────
 const PRIORITY_CONFIG: Record<AuditPriority, { label: string; glow: string; badge: string; dot: string }> = {
@@ -71,8 +72,8 @@ export function RecommendationCard({
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.45, ease: [0.21, 0.47, 0.32, 0.98], delay: index * 0.06 }}
-      className="rounded-2xl border border-white/[0.07] overflow-hidden"
-      style={{ background: `linear-gradient(135deg, ${priority.glow} 0%, oklch(0.13 0.015 277) 40%)` }}
+      className={`rounded-2xl border border-white/[0.07] overflow-hidden ${styles.cardGlow}`}
+      style={{ "--glow-color": priority.glow } as React.CSSProperties}
     >
       {/* Main row */}
       <button
