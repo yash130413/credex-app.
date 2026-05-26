@@ -20,9 +20,9 @@ const cols = [
   {
     heading: "Project",
     links: [
-      { label: "GitHub", href: "https://github.com/yash130413/credex-app" },
+      { label: "GitHub", href: "https://github.com/yash130413/credex-app." },
       { label: "Live demo", href: "https://credex-app-b68b.vercel.app/" },
-      { label: "Report a bug", href: "https://github.com/yash130413/credex-app/issues" },
+      { label: "Report a bug", href: "https://github.com/yash130413/credex-app./issues" },
     ],
   },
 ];
@@ -53,7 +53,7 @@ export function Footer() {
             </p>
             <div className="flex items-center gap-3">
               <Link
-                href="https://github.com/yash130413/credex-app"
+                href="https://github.com/yash130413/credex-app."
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub repository"

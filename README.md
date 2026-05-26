@@ -14,7 +14,7 @@ Identify wasted AI software spend, underutilized subscriptions, duplicate toolin
 [![Supabase](https://img.shields.io/badge/Supabase-PostgreSQL-3ECF8E?style=flat-square&logo=supabase)](https://supabase.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](./LICENSE)
 
-[Live Demo](https://credex-app-b68b.vercel.app/) · [GitHub](https://github.com/yash130413/credex-app) · [Report a Bug](https://github.com/yash130413/credex-app/issues)
+[Live Demo](https://credex-app-b68b.vercel.app/) · [GitHub](https://github.com/yash130413/credex-app.) · [Report a Bug](https://github.com/yash130413/credex-app./issues)
 
 </div>
 
@@ -163,7 +163,7 @@ src/
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/yash130413/credex-app.git
+git clone https://github.com/yash130413/credex-app..git
 cd credex-app
 ```
 
@@ -299,4 +299,4 @@ MIT — see [LICENSE](./LICENSE) for details.
 
 Built by **Yash Rohilla**
 
-[GitHub](https://github.com/yash130413) · [Live Demo](https://credex-app-b68b.vercel.app/) · [Repository](https://github.com/yash130413/credex-app)
+[GitHub](https://github.com/yash130413) · [Live Demo](https://credex-app-b68b.vercel.app/) · [Repository](https://github.com/yash130413/credex-app.)
