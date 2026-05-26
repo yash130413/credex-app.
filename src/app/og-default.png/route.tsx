@@ -86,7 +86,7 @@ export function GET() {
             fontSize: "18px",
           }}
         >
-          credex-app-b68b.vercel.app
+          credex-app-six.vercel.app
         </div>
       </div>
     ),
