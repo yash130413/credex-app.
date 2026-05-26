@@ -1,10 +1,22 @@
+import { createClient } from "@/lib/supabase/server";
+import { redirect } from "next/navigation";
 import { Sidebar } from "@/components/layout/sidebar";
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default async function DashboardLayout({ children }: { children: React.ReactNode }) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+
+  if (!user) redirect("/login");
+
+  const email = user.email ?? "";
+  const fullName = (user.user_metadata?.full_name as string | undefined) ?? "";
+
   return (
     <div className="flex h-screen overflow-hidden">
-      <Sidebar />
+      <Sidebar email={email} fullName={fullName} />
       <main className="flex-1 overflow-y-auto">
+        {/* Offset for mobile top bar */}
+        <div className="md:hidden h-14 shrink-0" />
         <div className="p-6 max-w-7xl mx-auto">{children}</div>
       </main>
     </div>

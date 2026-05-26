@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, FlaskConical } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { StatsGrid } from "@/components/dashboard/stats-grid";
 import { SpendChart } from "@/components/charts/spend-chart";
@@ -18,6 +18,18 @@ export default function DashboardPage() {
 
   return (
     <div className="flex flex-col gap-8">
+      {/* Demo data banner */}
+      <div className="flex items-center gap-2.5 px-4 py-3 rounded-xl border border-amber-500/20 bg-amber-500/[0.06] text-amber-400">
+        <FlaskConical className="w-4 h-4 shrink-0" aria-hidden="true" />
+        <p className="text-xs font-medium">
+          Demo data — connect your providers on the{" "}
+          <Link href="/integrations" className="underline underline-offset-2 hover:text-amber-300 transition-colors">
+            Integrations
+          </Link>{" "}
+          page to see live results.
+        </p>
+      </div>
+
       <div>
         <h1 className="text-2xl font-bold tracking-tight">Overview</h1>
         <p className="text-sm text-muted-foreground mt-1">Your AI spend at a glance</p>

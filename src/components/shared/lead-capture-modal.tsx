@@ -105,7 +105,7 @@ function SuccessState({ onClose }: { onClose: () => void }) {
         <CheckCircle2 className="w-7 h-7 text-emerald-400" />
       </div>
       <div className="flex flex-col gap-2">
-        <h3 className="text-lg font-semibold">You're on the list</h3>
+        <h3 className="text-lg font-semibold">You&apos;re on the list</h3>
         <p className="text-sm text-muted-foreground max-w-xs">
           We'll be in touch with personalized recommendations and early access to Credex.
         </p>

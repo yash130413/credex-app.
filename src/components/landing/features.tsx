@@ -1,55 +1,61 @@
 import {
   BarChart3,
   Zap,
-  Shield,
+  Users,
   Bell,
-  GitBranch,
-  Search,
+  GitMerge,
+  Shield,
 } from "lucide-react";
 import { FadeIn, StaggerChildren, StaggerItem } from "@/components/shared/motion";
 
 const features = [
   {
     icon: BarChart3,
-    title: "Unified spend dashboard",
+    title: "Multi-provider spend dashboard",
     description:
-      "One view for every AI provider. Track costs, tokens, and requests across OpenAI, Anthropic, Gemini, and more — in real time.",
+      "One view across ChatGPT, Claude, Cursor, GitHub Copilot, and Gemini. Track monthly spend, seat counts, and utilization rates in a single dashboard.",
     color: "oklch(0.72 0.19 277.1)",
+    soon: false,
   },
   {
-    icon: Search,
-    title: "Automated waste detection",
+    icon: Users,
+    title: "Seat utilization analysis",
     description:
-      "Credex scans your usage patterns and flags redundant calls, over-provisioned models, and duplicate embeddings automatically.",
+      "Identify inactive seats, casual users, and over-provisioned licenses. See exactly which team members haven't used a tool in 30 days.",
     color: "oklch(0.65 0.22 200)",
+    soon: false,
   },
   {
     icon: Zap,
-    title: "Model right-sizing",
+    title: "Deterministic audit engine",
     description:
-      "Identify every place you're using GPT-4 for a GPT-3.5 job. Get specific swap recommendations with projected savings.",
+      "13 rule-based checks across 5 providers produce explainable, finance-friendly recommendations — no LLM hallucinations, no black-box outputs.",
     color: "oklch(0.75 0.18 60)",
+    soon: false,
+  },
+  {
+    icon: GitMerge,
+    title: "Vendor overlap detection",
+    description:
+      "Automatically flags redundant subscriptions — Cursor + Copilot on the same team, ChatGPT + Claude for identical workflows, and more.",
+    color: "oklch(0.72 0.19 140)",
+    soon: false,
   },
   {
     icon: Bell,
-    title: "Budget alerts & guardrails",
+    title: "Recurring spend monitoring",
     description:
-      "Set spend limits per provider, team, or project. Get Slack or email alerts before you blow past your budget.",
+      "Schedule monthly re-audits to catch new waste as your team grows, adds seats, or onboards new AI tools.",
     color: "oklch(0.72 0.19 310)",
-  },
-  {
-    icon: GitBranch,
-    title: "Per-feature attribution",
-    description:
-      "Tag API calls by feature, team, or customer. Know exactly which product surface is driving your AI bill.",
-    color: "oklch(0.72 0.19 140)",
+    soon: true,
   },
   {
     icon: Shield,
-    title: "Anomaly detection",
+    title: "Shareable audit reports",
     description:
-      "ML-powered spike detection catches runaway loops, prompt injection attempts, and unusual usage before they cost you.",
+      "Generate a public, sanitized audit report URL to share with your CFO, board, or finance team — no login required to view.",
     color: "oklch(0.65 0.22 30)",
+    soon: false,
   },
 ];
 
@@ -73,11 +79,18 @@ export function Features() {
           {features.map((f) => (
             <StaggerItem key={f.title}>
               <div className="gradient-border rounded-2xl h-full bg-card/50 backdrop-blur-sm p-6 flex flex-col gap-4 hover:bg-card/80 transition-colors group">
-                <div
-                  className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
-                  style={{ background: `${f.color}18` }}
-                >
-                  <f.icon className="w-5 h-5" style={{ color: f.color }} />
+                <div className="flex items-start justify-between gap-2">
+                  <div
+                    className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0"
+                    style={{ background: `${f.color}18` }}
+                  >
+                    <f.icon className="w-5 h-5" style={{ color: f.color }} aria-hidden="true" />
+                  </div>
+                  {f.soon && (
+                    <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border border-white/10 bg-white/5 text-muted-foreground shrink-0">
+                      Coming soon
+                    </span>
+                  )}
                 </div>
                 <div className="flex flex-col gap-2">
                   <h3 className="font-semibold text-[15px] tracking-tight">{f.title}</h3>

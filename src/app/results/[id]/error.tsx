@@ -12,7 +12,9 @@ interface Props {
 
 export default function ResultsError({ error, reset }: Props) {
   useEffect(() => {
-    console.error("[ResultsPage]", error);
+    if (process.env.NODE_ENV !== "production") {
+      console.error("[ResultsPage]", error);
+    }
   }, [error]);
 
   const isNotFound =

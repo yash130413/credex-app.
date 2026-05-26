@@ -26,9 +26,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     return { title: "Audit Report | Credex" };
   }
 
+  const APP_URL = process.env.NEXT_PUBLIC_APP_URL ?? "https://credex-app-b68b.vercel.app";
   const title = `${audit.title} | Credex Audit Report`;
   const description = `This AI spend audit identified ${audit.recommendations.length} optimization opportunities worth ${formatCurrency(audit.estimated_annual_savings)}/yr in savings.`;
-  const url = `${process.env.NEXT_PUBLIC_APP_URL ?? "https://credex.ai"}/results/${id}`;
+  const url = `${APP_URL}/results/${id}`;
 
   return {
     title,
@@ -39,23 +40,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       url,
       type: "article",
       siteName: "Credex",
-      images: [
-        {
-          url: `${process.env.NEXT_PUBLIC_APP_URL ?? "https://credex.ai"}/api/og?title=${encodeURIComponent(audit.title)}&savings=${encodeURIComponent(formatCurrency(audit.estimated_annual_savings))}&score=${audit.optimization_score}`,
-          width: 1200,
-          height: 630,
-          alt: title,
-        },
-      ],
+      images: [{ url: `${APP_URL}/og-default.png`, width: 1200, height: 630, alt: title }],
     },
     twitter: {
       card: "summary_large_image",
       title,
       description,
       site: "@credexai",
-      images: [
-        `${process.env.NEXT_PUBLIC_APP_URL ?? "https://credex.ai"}/api/og?title=${encodeURIComponent(audit.title)}&savings=${encodeURIComponent(formatCurrency(audit.estimated_annual_savings))}&score=${audit.optimization_score}`,
-      ],
+      images: [`${APP_URL}/og-default.png`],
     },
     alternates: { canonical: url },
   };
@@ -114,7 +106,7 @@ export default async function ResultsPage({ params }: Props) {
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2">
               <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/[0.07] text-emerald-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
                 Public Report
               </span>
             </div>
@@ -129,13 +121,13 @@ export default async function ResultsPage({ params }: Props) {
             </p>
           </div>
 
-          <a
+          <Link
             href="/"
             className="shrink-0 inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] hover:bg-white/[0.07] transition-colors text-muted-foreground hover:text-foreground"
           >
             Run your own audit
-            <ExternalLink className="w-3 h-3" />
-          </a>
+            <ExternalLink className="w-3 h-3" aria-hidden="true" />
+          </Link>
         </div>
 
         {/* ── Hero stats ───────────────────────────────────────────────────── */}

@@ -1,12 +1,19 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 export function Hero() {
+  const reduce = useReducedMotion();
+
+  const fadeUp = (delay = 0) =>
+    reduce
+      ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3, delay } }
+      : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.65, ease: [0.21, 0.47, 0.32, 0.98] as const, delay } };
+
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-5 pt-24 pb-16">
       {/* Background grid */}
@@ -25,11 +32,7 @@ export function Hero() {
 
       <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto gap-6">
         {/* Announcement badge */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98] }}
-        >
+        <motion.div {...fadeUp(0)}>
           <Link href="/signup">
             <Badge
               variant="outline"
@@ -44,9 +47,7 @@ export function Hero() {
 
         {/* Headline */}
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.1 }}
+          {...fadeUp(0.1)}
           className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] text-balance"
         >
           Stop burning money
@@ -56,9 +57,7 @@ export function Hero() {
 
         {/* Subtext */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.2 }}
+          {...fadeUp(0.2)}
           className="text-lg text-muted-foreground max-w-xl leading-relaxed text-balance"
         >
           Credex connects to every AI provider, audits your usage in minutes, and surfaces
@@ -67,9 +66,7 @@ export function Hero() {
 
         {/* CTAs */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.65, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.3 }}
+          {...fadeUp(0.3)}
           className="flex flex-wrap items-center justify-center gap-3"
         >
           <Link href="/signup">
@@ -82,13 +79,13 @@ export function Hero() {
               <ArrowRight className="w-4 h-4" />
             </Button>
           </Link>
-          <Link href="/dashboard">
+          <Link href="/login">
             <Button
               size="lg"
               variant="outline"
               className="gap-2 font-medium px-6 h-11 text-sm border-white/10 bg-white/5 hover:bg-white/10 text-foreground"
             >
-              View live demo
+              View dashboard
             </Button>
           </Link>
         </motion.div>
@@ -97,18 +94,18 @@ export function Hero() {
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.6, delay: 0.5 }}
+          transition={{ duration: reduce ? 0.2 : 0.6, delay: reduce ? 0 : 0.5 }}
           className="text-xs text-muted-foreground"
         >
-          No credit card required · Free for up to $5k/mo AI spend · Setup in 2 minutes
+          No credit card required · Free to run your first audit · Setup in 2 minutes
         </motion.p>
       </div>
 
       {/* Dashboard preview card */}
       <motion.div
-        initial={{ opacity: 0, y: 48, scale: 0.97 }}
+        initial={{ opacity: 0, y: reduce ? 0 : 48, scale: reduce ? 1 : 0.97 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: 0.9, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.45 }}
+        transition={{ duration: reduce ? 0.3 : 0.9, ease: [0.21, 0.47, 0.32, 0.98] as const, delay: reduce ? 0 : 0.45 }}
         className="relative z-10 mt-16 w-full max-w-5xl mx-auto"
       >
         <div className="gradient-border rounded-2xl overflow-hidden bg-card/60 backdrop-blur-sm noise">
@@ -126,7 +123,7 @@ export function Hero() {
           <div className="p-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
               { label: "Total Spend", value: "$4,821", change: "+12.4%", up: true },
-              { label: "Est. Savings", value: "$1,240", change: "Found", up: false },
+              { label: "Est. Savings", value: "$1,240", change: "Identified", up: false },
               { label: "Tokens Used", value: "182M", change: "+8.1%", up: true },
               { label: "Providers", value: "3", change: "Active", up: false },
             ].map((stat) => (
@@ -154,7 +151,7 @@ export function Hero() {
                 ))}
               </div>
               <div className="flex justify-between mt-2">
-                {["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"].map((m) => (
+                {["Jan","Apr","Jul","Oct"].map((m) => (
                   <span key={m} className="text-[10px] text-muted-foreground">{m}</span>
                 ))}
               </div>

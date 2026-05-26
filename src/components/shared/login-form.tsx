@@ -36,13 +36,35 @@ export function LoginForm() {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="you@company.com" {...register("email")} />
-            {errors.email && <p className="text-xs text-destructive">{errors.email.message}</p>}
+            <Input
+              id="email"
+              type="email"
+              placeholder="you@company.com"
+              aria-describedby={errors.email ? "email-error" : undefined}
+              aria-invalid={!!errors.email}
+              {...register("email")}
+            />
+            {errors.email && (
+              <p id="email-error" role="alert" className="text-xs text-destructive">
+                {errors.email.message}
+              </p>
+            )}
           </div>
           <div className="flex flex-col gap-1.5">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" placeholder="••••••••" {...register("password")} />
-            {errors.password && <p className="text-xs text-destructive">{errors.password.message}</p>}
+            <Input
+              id="password"
+              type="password"
+              placeholder="••••••••"
+              aria-describedby={errors.password ? "password-error" : undefined}
+              aria-invalid={!!errors.password}
+              {...register("password")}
+            />
+            {errors.password && (
+              <p id="password-error" role="alert" className="text-xs text-destructive">
+                {errors.password.message}
+              </p>
+            )}
           </div>
           <Button type="submit" className="w-full" disabled={isSubmitting}>
             {isSubmitting ? "Signing in…" : "Sign in"}
