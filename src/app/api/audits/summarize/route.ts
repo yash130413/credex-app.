@@ -3,7 +3,7 @@ import { z } from "zod";
 import { createClient } from "@/lib/supabase/server";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 import { generateAuditSummary } from "@/lib/ai/summarize";
-import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/rate-limit";
 import type { AuditEngineResult } from "@/types/audit-engine";
 import type { AuditRow } from "@/types/database";
 
@@ -29,15 +29,13 @@ const bodySchema = z.object({
 
 export async function POST(req: NextRequest) {
   // Rate limit — 10 summaries per user per hour (Anthropic calls are expensive)
-  const ip = getClientIp(req);
-  const { allowed, resetAt } = rateLimit(`summarize:${ip}`, {
-    limit: 10,
-    windowMs: 60 * 60 * 1000,
-  });
-  if (!allowed) {
+  const identifier = getRateLimitIdentifier(req);
+  const { success, remaining } = checkRateLimit(`summarize:${identifier}`);
+  
+  if (!success) {
     return NextResponse.json(
       { error: "Too many requests. Please try again later." },
-      { status: 429, headers: { "Retry-After": String(Math.ceil((resetAt - Date.now()) / 1000)) } }
+      { status: 429, headers: { "X-RateLimit-Remaining": String(remaining) } }
     );
   }
 
