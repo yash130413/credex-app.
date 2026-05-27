@@ -2,7 +2,7 @@
 
 ## Interview 1 — Yogesh, Program Manager, Icertis
 
-**Date:** May 25, 2026
+**Date:** May 26, 2026
 **Duration:** 35 minutes  
 **Context:** Personal connection and follow-up WhatsApp conversation
 
