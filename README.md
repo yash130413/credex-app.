@@ -55,16 +55,25 @@ Authentication routes (`/login`, `/signup`, `/dashboard`) exist for these future
 ## Screenshots
 
 ### Landing Page
+![Landing Page](./screenshots/Screenshot%202026-05-27%20152653.png)
+
 Clean, conversion-optimized landing page with clear value proposition and instant audit CTA.
 
-### Audit Form
-Simple multi-provider form with localStorage persistence - no data loss on refresh.
+### Audit Results
+![Audit Results](./screenshots/Screenshot%202026-05-27%20152754.png)
 
-### Results Dashboard
 Interactive results page with savings breakdown, priority-based recommendations, and shareable public links.
 
-### Recommendations
-Detailed, actionable recommendations with confidence scores, affected users, and monthly/annual savings.
+### Lighthouse Mobile Performance
+![Lighthouse Mobile Scores](./screenshots/lighthouse-mobile.png)
+
+**Lighthouse Mobile Scores (Deployed URL):**
+- ✅ Performance: 92/100
+- ✅ Accessibility: 95/100
+- ✅ Best Practices: 100/100
+- ✅ SEO: 100/100
+
+All scores exceed the assignment requirements (Performance ≥ 85, Accessibility ≥ 90, Best Practices ≥ 90).
 
 **Live Demo:** [https://credex-app-six.vercel.app/](https://credex-app-six.vercel.app/)
 
