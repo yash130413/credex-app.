@@ -350,7 +350,7 @@ export function Hero() {
 
           {/* CTAs */}
           <motion.div {...fadeUp(0.28)} className="flex flex-wrap items-center gap-3">
-            <Link href="/signup">
+            <Link href="/audit-form">
               <Button size="lg" className="h-11 px-6 text-sm font-semibold gap-2 bg-green-600 hover:bg-green-700 text-white rounded-2xl shadow-md shadow-green-600/20 hover:shadow-lg hover:shadow-green-600/25 transition-all">
                 Start Free Audit
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />

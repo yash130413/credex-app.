@@ -29,7 +29,7 @@ export function CTA() {
             </div>
 
             <div className="relative flex flex-wrap items-center gap-3">
-              <Link href="/signup">
+              <Link href="/audit-form">
                 <Button size="lg" className="h-11 px-6 text-sm font-semibold gap-2 bg-green-600 hover:bg-green-700 text-white rounded-2xl shadow-md shadow-green-600/20 transition-all">
                   Start Free Audit
                   <ArrowRight className="w-4 h-4" aria-hidden="true" />
