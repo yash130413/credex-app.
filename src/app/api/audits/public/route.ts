@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { runAuditEngine } from "@/lib/audit-engine";
 import type { WorkspaceMetrics } from "@/types/audit-engine";
-import { createClient } from "@/lib/supabase/admin";
+import { supabaseAdmin } from "@/lib/supabase/admin";
 
 // Public audit schema - no auth required
 const publicAuditSchema = z.object({
@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
   const title = `AI Spend Audit - ${new Date().toLocaleDateString()}`;
 
   // 4. Save to database (public audits don't need org_id)
-  const supabase = createClient();
+  const supabase = supabaseAdmin;
   
   try {
     // Generate unique share_id
