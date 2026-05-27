@@ -5,6 +5,7 @@ import { runAuditEngine } from "@/lib/audit-engine";
 import { saveAuditReport } from "@/lib/db/audits";
 import { generateAuditSummary } from "@/lib/ai/summarize";
 import { sendAuditEmail } from "@/lib/mail/send-audit-email";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/rate-limit";
 import type { WorkspaceMetrics } from "@/types/audit-engine";
 
 const bodySchema = z.object({
@@ -14,6 +15,17 @@ const bodySchema = z.object({
 });
 
 export async function POST(req: NextRequest) {
+  // Rate limiting
+  const identifier = getRateLimitIdentifier(req);
+  const { success, remaining } = checkRateLimit(identifier);
+  
+  if (!success) {
+    return NextResponse.json(
+      { error: "Too many requests. Please try again later." },
+      { status: 429, headers: { 'X-RateLimit-Remaining': '0' } }
+    );
+  }
+
   // 1. Auth (optional for public audits)
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();

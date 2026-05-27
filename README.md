@@ -54,18 +54,19 @@ Authentication routes (`/login`, `/signup`, `/dashboard`) exist for these future
 
 ## Screenshots
 
-**Note:** Screenshots will be added before final submission. The application is deployed and working at the live demo URL above.
+### Landing Page
+Clean, conversion-optimized landing page with clear value proposition and instant audit CTA.
 
-<!-- Screenshots to be added:
-### Dashboard
-<img width="100%" alt="Dashboard" src="./screenshots/dashboard.png" />
+### Audit Form
+Simple multi-provider form with localStorage persistence - no data loss on refresh.
 
-### Audit Summary
-<img width="100%" alt="Audit Summary" src="./screenshots/audit-summary.png" />
+### Results Dashboard
+Interactive results page with savings breakdown, priority-based recommendations, and shareable public links.
 
 ### Recommendations
-<img width="100%" alt="Recommendations" src="./screenshots/recommendations.png" />
--->
+Detailed, actionable recommendations with confidence scores, affected users, and monthly/annual savings.
+
+**Live Demo:** [https://credex-app-six.vercel.app/](https://credex-app-six.vercel.app/)
 
 ---
 

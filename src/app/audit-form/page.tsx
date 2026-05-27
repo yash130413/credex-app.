@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useLocalStorage } from "@/hooks/use-local-storage";
+import { analytics } from "@/lib/analytics";
 
 // Provider options
 const PROVIDERS = [
@@ -79,6 +80,9 @@ export default function AuditFormPage() {
           annualCommitment: false,
         }));
 
+      // Track audit start
+      analytics.auditStarted(workspaces[0]?.provider || 'unknown');
+
       // Call audit API
       const response = await fetch("/api/audits", {
         method: "POST",
@@ -96,6 +100,13 @@ export default function AuditFormPage() {
       }
 
       const data = await response.json();
+      
+      // Track audit completion
+      analytics.auditCompleted({
+        providers: workspaces.map(w => w.provider),
+        totalSavings: data.result?.totalAnnualSavings || 0,
+        recommendationCount: data.result?.recommendations?.length || 0,
+      });
       
       // Redirect to results page using shareId
       router.push(`/results/${data.shareId}`);
