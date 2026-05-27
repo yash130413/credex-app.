@@ -13,6 +13,7 @@ import {
   MessageSquare,
   TrendingUp,
   Zap,
+  type LucideIcon,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Switch } from "@/components/ui/switch";
@@ -25,7 +26,7 @@ import { cn } from "@/lib/utils";
 const EASE = [0.21, 0.47, 0.32, 0.98] as const;
 
 interface SettingRowProps {
-  icon: any;
+  icon: LucideIcon;
   label: string;
   description: string;
   children: React.ReactNode;

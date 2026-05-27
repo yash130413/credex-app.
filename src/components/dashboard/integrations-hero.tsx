@@ -1,10 +1,9 @@
 "use client";
 
 import { motion, useInView } from "framer-motion";
-import { Activity, Shield, TrendingUp, Zap } from "lucide-react";
+import { Activity, Shield, TrendingUp, Zap, type LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 
 const EASE = [0.21, 0.47, 0.32, 0.98] as const;
 
@@ -43,7 +42,7 @@ function StatCard({
   suffix = "",
   delay = 0,
 }: {
-  icon: any;
+  icon: LucideIcon;
   label: string;
   value: number;
   suffix?: string;

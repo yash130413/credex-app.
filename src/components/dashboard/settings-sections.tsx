@@ -10,6 +10,7 @@ import {
   Shield,
   Sparkles,
   Zap,
+  type LucideIcon,
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -18,7 +19,7 @@ import { cn } from "@/lib/utils";
 const EASE = [0.21, 0.47, 0.32, 0.98] as const;
 
 interface SettingCardProps {
-  icon: any;
+  icon: LucideIcon;
   title: string;
   description: string;
   badge?: string;

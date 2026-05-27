@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Activity, CheckCircle2, Shield, TrendingUp, Zap } from "lucide-react";
+import { Activity, CheckCircle2, Shield, TrendingUp, Zap, type LucideIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -13,7 +13,7 @@ function MetricCard({
   value,
   delay = 0,
 }: {
-  icon: any;
+  icon: LucideIcon;
   label: string;
   value: string;
   delay?: number;
