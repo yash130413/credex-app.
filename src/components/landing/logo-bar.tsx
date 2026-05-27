@@ -1,31 +1,31 @@
 import { FadeIn } from "@/components/shared/motion";
 
 const providers = [
-  { name: "OpenAI", logo: "OpenAI" },
-  { name: "Anthropic", logo: "Anthropic" },
-  { name: "Google Gemini", logo: "Gemini" },
-  { name: "Cohere", logo: "Cohere" },
-  { name: "Mistral AI", logo: "Mistral" },
-  { name: "AWS Bedrock", logo: "Bedrock" },
+  "ChatGPT",
+  "Claude",
+  "Cursor",
+  "GitHub Copilot",
+  "Gemini",
+  "AWS Bedrock",
+  "Mistral",
+  "Cohere",
 ];
 
 export function LogoBar() {
   return (
-    <section className="py-16 border-y border-white/[0.06]">
+    <section className="py-14 border-y border-white/[0.06]">
       <div className="max-w-6xl mx-auto px-5">
         <FadeIn>
-          <p className="text-center text-xs text-muted-foreground uppercase tracking-widest mb-10">
-            Connects to every major AI provider
+          <p className="text-center text-xs text-muted-foreground/50 uppercase tracking-widest mb-8">
+            Audits across every major AI provider
           </p>
-        </FadeIn>
-        <FadeIn delay={0.1}>
-          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-4">
             {providers.map((p) => (
               <span
-                key={p.name}
-                className="text-sm font-semibold text-muted-foreground/50 hover:text-muted-foreground transition-colors tracking-tight"
+                key={p}
+                className="text-sm font-medium text-muted-foreground/40 hover:text-muted-foreground/70 transition-colors tracking-tight select-none"
               >
-                {p.logo}
+                {p}
               </span>
             ))}
           </div>

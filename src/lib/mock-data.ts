@@ -1,4 +1,4 @@
-import type { DashboardStats, SpendChartData, Audit, AIProvider } from "@/types";
+import type { DashboardStats, SpendChartData, AIProvider } from "@/types";
 
 export const mockStats: DashboardStats = {
   totalSpend: 4821.5,
@@ -46,46 +46,4 @@ export const mockProviders: AIProvider[] = [
   },
 ];
 
-export const mockAudits: Audit[] = [
-  {
-    id: "1",
-    name: "Q2 OpenAI Spend Review",
-    status: "completed",
-    provider: "openai",
-    startDate: "2024-04-01",
-    endDate: "2024-06-30",
-    totalCost: 3240.5,
-    totalTokens: 98_000_000,
-    createdAt: "2024-07-01T09:00:00Z",
-    findings: [
-      {
-        id: "f1",
-        type: "waste",
-        severity: "high",
-        title: "Redundant embeddings generation",
-        description: "Same content embedded 3x due to missing cache layer.",
-        estimatedSavings: 420,
-      },
-      {
-        id: "f2",
-        type: "optimization",
-        severity: "medium",
-        title: "Model downgrade opportunity",
-        description: "GPT-4 used for simple classification tasks.",
-        estimatedSavings: 680,
-      },
-    ],
-  },
-  {
-    id: "2",
-    name: "Anthropic Monthly Audit",
-    status: "running",
-    provider: "anthropic",
-    startDate: "2024-06-01",
-    endDate: "2024-06-30",
-    totalCost: 1580.0,
-    totalTokens: 42_000_000,
-    createdAt: "2024-07-02T11:00:00Z",
-    findings: [],
-  },
-];
+

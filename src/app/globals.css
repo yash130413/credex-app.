@@ -85,7 +85,7 @@
 
 /* ── Dark (primary theme) ─────────────────────────────────── */
 .dark {
-  --background: oklch(0.098 0.012 277);
+  --background: #0a0a0f;
   --foreground: oklch(0.97 0.004 277);
   --card: oklch(0.13 0.015 277);
   --card-foreground: oklch(0.97 0.004 277);

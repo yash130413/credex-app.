@@ -2,169 +2,239 @@
 
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, TrendingDown, Users, GitMerge, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 
+// ── Inline mock recommendation card ──────────────────────────────────────────
+function MockRecCard({
+  provider,
+  title,
+  savings,
+  confidence,
+  priority,
+  delay,
+}: {
+  provider: string;
+  title: string;
+  savings: string;
+  confidence: number;
+  priority: "Critical" | "High" | "Medium";
+  delay: number;
+}) {
+  const priorityStyle = {
+    Critical: "text-red-400 bg-red-500/10 border-red-500/20",
+    High:     "text-orange-400 bg-orange-500/10 border-orange-500/20",
+    Medium:   "text-yellow-400 bg-yellow-500/10 border-yellow-500/20",
+  }[priority];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 16 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98], delay }}
+      className="rounded-xl border border-white/[0.07] bg-[#111118] p-4 flex items-start gap-3"
+    >
+      <div className="flex-1 min-w-0 flex flex-col gap-2">
+        <div className="flex items-center gap-2">
+          <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded border ${priorityStyle}`}>
+            {priority}
+          </span>
+          <span className="text-[10px] text-muted-foreground font-medium">{provider}</span>
+        </div>
+        <p className="text-xs font-medium leading-snug">{title}</p>
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-emerald-400 font-semibold">{savings}/yr</span>
+          <div className="flex items-center gap-1.5">
+            <div className="w-12 h-1 rounded-full bg-white/[0.06] overflow-hidden">
+              <div
+                className="h-full rounded-full bg-indigo-500"
+                style={{ width: `${confidence}%` }}
+              />
+            </div>
+            <span className="text-[10px] text-muted-foreground">{confidence}%</span>
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Mock dashboard panel ──────────────────────────────────────────────────────
+function MockDashboard() {
+  const reduce = useReducedMotion();
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: reduce ? 0 : 32 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.7, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.5 }}
+      className="w-full max-w-2xl"
+    >
+      {/* Browser chrome */}
+      <div className="rounded-2xl border border-white/[0.08] bg-[#0e0e14] overflow-hidden shadow-2xl">
+        <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
+          <span className="w-2.5 h-2.5 rounded-full bg-white/10" aria-hidden="true" />
+          <span className="w-2.5 h-2.5 rounded-full bg-white/10" aria-hidden="true" />
+          <span className="w-2.5 h-2.5 rounded-full bg-white/10" aria-hidden="true" />
+          <span className="ml-3 h-5 flex-1 max-w-[180px] rounded bg-white/[0.04] text-[10px] text-muted-foreground flex items-center px-2.5">
+            app.credex.ai/audits
+          </span>
+        </div>
+
+        <div className="p-5 flex flex-col gap-4">
+          {/* Stats row */}
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              { label: "Monthly Savings", value: "$1,840", color: "text-emerald-400" },
+              { label: "Annual Savings",  value: "$22,080", color: "text-foreground" },
+              { label: "Findings",        value: "7",       color: "text-orange-400" },
+            ].map((s) => (
+              <div key={s.label} className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-3 flex flex-col gap-1">
+                <span className="text-[10px] text-muted-foreground">{s.label}</span>
+                <span className={`text-lg font-bold tabular-nums ${s.color}`}>{s.value}</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Utilization bar chart */}
+          <div className="rounded-xl bg-white/[0.03] border border-white/[0.06] p-3">
+            <p className="text-[10px] text-muted-foreground mb-3">Seat utilization by provider</p>
+            <div className="flex items-end gap-2 h-16">
+              {[
+                { label: "ChatGPT", pct: 62, color: "#34d399" },
+                { label: "Claude",  pct: 45, color: "#fbbf24" },
+                { label: "Cursor",  pct: 38, color: "#818cf8" },
+                { label: "Copilot", pct: 71, color: "#38bdf8" },
+                { label: "Gemini",  pct: 29, color: "#60a5fa" },
+              ].map((b) => (
+                <div key={b.label} className="flex-1 flex flex-col items-center gap-1">
+                  <div className="w-full rounded-sm" style={{ height: `${b.pct}%`, background: `${b.color}60` }} />
+                  <span className="text-[8px] text-muted-foreground">{b.label}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Recommendation cards */}
+          <div className="flex flex-col gap-2">
+            <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-medium">Top findings</p>
+            <MockRecCard provider="Cursor"  title="8 inactive Pro seats detected"              savings="$1,920" confidence={88} priority="High"     delay={0.65} />
+            <MockRecCard provider="ChatGPT" title="Duplicate usage across Claude + ChatGPT"    savings="$4,200" confidence={81} priority="Critical" delay={0.72} />
+            <MockRecCard provider="Copilot" title="12 licenses with <5 sessions in 30 days"    savings="$2,736" confidence={94} priority="High"     delay={0.79} />
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Main hero ─────────────────────────────────────────────────────────────────
 export function Hero() {
   const reduce = useReducedMotion();
 
   const fadeUp = (delay = 0) =>
     reduce
-      ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.3, delay } }
-      : { initial: { opacity: 0, y: 20 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.65, ease: [0.21, 0.47, 0.32, 0.98] as const, delay } };
+      ? { initial: { opacity: 0 }, animate: { opacity: 1 }, transition: { duration: 0.25, delay } }
+      : { initial: { opacity: 0, y: 16 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.55, ease: [0.21, 0.47, 0.32, 0.98] as const, delay } };
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-5 pt-24 pb-16">
-      {/* Background grid */}
-      <div className="absolute inset-0 hero-grid opacity-100 pointer-events-none" />
-
-      {/* Radial gradient orbs */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[600px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, oklch(0.72 0.19 277.1 / 12%) 0%, transparent 70%)" }}
-      />
-      <div className="absolute top-1/2 left-1/4 w-[400px] h-[400px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, oklch(0.65 0.22 200 / 8%) 0%, transparent 70%)" }}
-      />
-      <div className="absolute top-1/3 right-1/4 w-[300px] h-[300px] rounded-full pointer-events-none"
-        style={{ background: "radial-gradient(ellipse at center, oklch(0.72 0.19 310 / 7%) 0%, transparent 70%)" }}
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden px-5 pt-28 pb-20">
+      {/* Matte background — single subtle radial, no grid */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          background:
+            "radial-gradient(ellipse 80% 50% at 50% -10%, rgba(99,102,241,0.08) 0%, transparent 70%)",
+        }}
+        aria-hidden="true"
       />
 
-      <div className="relative z-10 flex flex-col items-center text-center max-w-4xl mx-auto gap-6">
-        {/* Announcement badge */}
-        <motion.div {...fadeUp(0)}>
-          <Link href="/signup">
-            <Badge
-              variant="outline"
-              className="gap-1.5 px-3 py-1 text-xs border-white/10 bg-white/5 text-muted-foreground hover:bg-white/10 hover:text-foreground transition-colors cursor-pointer"
-            >
-              <Sparkles className="w-3 h-3 text-primary" />
-              Introducing AI Spend Audits
-              <ArrowRight className="w-3 h-3" />
-            </Badge>
-          </Link>
-        </motion.div>
+      <div className="relative z-10 w-full max-w-6xl mx-auto flex flex-col lg:flex-row items-center gap-16 lg:gap-20">
 
-        {/* Headline */}
-        <motion.h1
-          {...fadeUp(0.1)}
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.08] text-balance"
-        >
-          Stop burning money
-          <br />
-          <span className="gradient-text">on AI APIs</span>
-        </motion.h1>
+        {/* Left — copy */}
+        <div className="flex-1 flex flex-col gap-7 max-w-xl">
 
-        {/* Subtext */}
-        <motion.p
-          {...fadeUp(0.2)}
-          className="text-lg text-muted-foreground max-w-xl leading-relaxed text-balance"
-        >
-          Credex connects to every AI provider, audits your usage in minutes, and surfaces
-          exactly where you&apos;re overspending — with one-click fixes.
-        </motion.p>
-
-        {/* CTAs */}
-        <motion.div
-          {...fadeUp(0.3)}
-          className="flex flex-wrap items-center justify-center gap-3"
-        >
-          <Link href="/signup">
-            <Button
-              size="lg"
-              className="gap-2 font-medium px-6 h-11 text-sm"
-              style={{ boxShadow: "0 0 24px -4px oklch(0.72 0.19 277.1 / 50%)" }}
-            >
-              Start free audit
-              <ArrowRight className="w-4 h-4" />
-            </Button>
-          </Link>
-          <Link href="https://credex-app-six.vercel.app/" target="_blank" rel="noopener noreferrer">
-            <Button
-              size="lg"
-              variant="outline"
-              className="gap-2 font-medium px-6 h-11 text-sm border-white/10 bg-white/5 hover:bg-white/10 text-foreground"
-            >
-              View live demo
-            </Button>
-          </Link>
-        </motion.div>
-
-        {/* Social proof line */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: reduce ? 0.2 : 0.6, delay: reduce ? 0 : 0.5 }}
-          className="text-xs text-muted-foreground"
-        >
-          No credit card required · Free to run your first audit · Setup in 2 minutes
-        </motion.p>
-      </div>
-
-      {/* Dashboard preview card */}
-      <motion.div
-        initial={{ opacity: 0, y: reduce ? 0 : 48, scale: reduce ? 1 : 0.97 }}
-        animate={{ opacity: 1, y: 0, scale: 1 }}
-        transition={{ duration: reduce ? 0.3 : 0.9, ease: [0.21, 0.47, 0.32, 0.98] as const, delay: reduce ? 0 : 0.45 }}
-        className="relative z-10 mt-16 w-full max-w-5xl mx-auto"
-      >
-        <div className="gradient-border rounded-2xl overflow-hidden bg-card/60 backdrop-blur-sm noise">
-          {/* Fake browser chrome */}
-          <div className="flex items-center gap-2 px-4 py-3 border-b border-white/[0.06] bg-white/[0.02]">
-            <span className="w-3 h-3 rounded-full bg-white/10" />
-            <span className="w-3 h-3 rounded-full bg-white/10" />
-            <span className="w-3 h-3 rounded-full bg-white/10" />
-            <span className="ml-3 flex-1 h-6 rounded-md bg-white/5 max-w-xs text-xs text-muted-foreground flex items-center px-3">
-              app.credex.ai/dashboard
+          {/* Eyebrow */}
+          <motion.div {...fadeUp(0)}>
+            <span className="inline-flex items-center gap-2 text-xs font-medium text-muted-foreground border border-white/[0.08] bg-white/[0.03] px-3 py-1.5 rounded-full">
+              <span className="w-1.5 h-1.5 rounded-full bg-indigo-400" aria-hidden="true" />
+              AI spend visibility for engineering teams
             </span>
-          </div>
+          </motion.div>
 
-          {/* Mock dashboard content */}
-          <div className="p-6 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          {/* Headline */}
+          <motion.h1
+            {...fadeUp(0.08)}
+            className="text-4xl sm:text-5xl font-semibold tracking-tight leading-[1.12] text-balance"
+          >
+            Understand where your{" "}
+            <span className="text-white">AI tooling budget</span>{" "}
+            is actually going
+          </motion.h1>
+
+          {/* Subtext */}
+          <motion.p
+            {...fadeUp(0.16)}
+            className="text-base text-muted-foreground leading-relaxed max-w-md"
+          >
+            Credex audits seat utilization, detects duplicate vendors, and surfaces
+            finance-ready optimization recommendations across ChatGPT, Claude, Cursor,
+            Copilot, and Gemini.
+          </motion.p>
+
+          {/* Trust signals */}
+          <motion.div
+            {...fadeUp(0.22)}
+            className="flex flex-wrap gap-x-5 gap-y-2"
+          >
             {[
-              { label: "Total Spend", value: "$4,821", change: "+12.4%", up: true },
-              { label: "Est. Savings", value: "$1,240", change: "Identified", up: false },
-              { label: "Tokens Used", value: "182M", change: "+8.1%", up: true },
-              { label: "Providers", value: "3", change: "Active", up: false },
-            ].map((stat) => (
-              <div key={stat.label} className="rounded-xl bg-white/[0.04] border border-white/[0.06] p-4 flex flex-col gap-2">
-                <span className="text-xs text-muted-foreground">{stat.label}</span>
-                <span className="text-2xl font-bold tracking-tight">{stat.value}</span>
-                <span className={`text-xs font-medium ${stat.up ? "text-red-400" : "text-emerald-400"}`}>
-                  {stat.change}
-                </span>
-              </div>
+              { icon: ShieldCheck, label: "Deterministic audits" },
+              { icon: TrendingDown, label: "Explainable savings" },
+              { icon: Users,        label: "Seat-level visibility" },
+              { icon: GitMerge,     label: "Vendor overlap detection" },
+            ].map(({ icon: Icon, label }) => (
+              <span key={label} className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                <Icon className="w-3.5 h-3.5 text-indigo-400 shrink-0" aria-hidden="true" />
+                {label}
+              </span>
             ))}
-          </div>
+          </motion.div>
 
-          {/* Mock chart bar */}
-          <div className="px-6 pb-6">
-            <div className="rounded-xl bg-white/[0.04] border border-white/[0.06] p-4">
-              <div className="flex items-end gap-2 h-24">
-                {[40, 65, 52, 78, 60, 88, 72, 95, 68, 82, 74, 100].map((h, i) => (
-                  <div key={i} className="flex-1 rounded-sm" style={{
-                    height: `${h}%`,
-                    background: i === 11
-                      ? "oklch(0.72 0.19 277.1)"
-                      : `oklch(0.72 0.19 277.1 / ${20 + i * 5}%)`,
-                  }} />
-                ))}
-              </div>
-              <div className="flex justify-between mt-2">
-                {["Jan","Apr","Jul","Oct"].map((m) => (
-                  <span key={m} className="text-[10px] text-muted-foreground">{m}</span>
-                ))}
-              </div>
-            </div>
-          </div>
+          {/* CTAs */}
+          <motion.div {...fadeUp(0.28)} className="flex flex-wrap items-center gap-3">
+            <Link href="/signup">
+              <Button size="lg" className="h-10 px-5 text-sm font-medium gap-2">
+                Start Free Audit
+                <ArrowRight className="w-4 h-4" aria-hidden="true" />
+              </Button>
+            </Link>
+            <Link href="https://credex-app-six.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <Button
+                size="lg"
+                variant="outline"
+                className="h-10 px-5 text-sm font-medium border-white/[0.10] bg-transparent hover:bg-white/[0.04] text-muted-foreground hover:text-foreground"
+              >
+                View Live Demo
+              </Button>
+            </Link>
+          </motion.div>
+
+          {/* Social proof */}
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: reduce ? 0 : 0.4 }}
+            className="text-xs text-muted-foreground/60"
+          >
+            No credit card required · Free to run your first audit · 2-minute setup
+          </motion.p>
         </div>
 
-        {/* Glow under card */}
-        <div
-          className="absolute -bottom-12 left-1/2 -translate-x-1/2 w-3/4 h-24 pointer-events-none"
-          style={{ background: "radial-gradient(ellipse at center, oklch(0.72 0.19 277.1 / 20%) 0%, transparent 70%)" }}
-        />
-      </motion.div>
+        {/* Right — product preview */}
+        <div className="flex-1 w-full flex justify-center lg:justify-end">
+          <MockDashboard />
+        </div>
+      </div>
     </section>
   );
 }

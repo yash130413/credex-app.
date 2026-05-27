@@ -5,63 +5,54 @@ import { FadeIn } from "@/components/shared/motion";
 
 export function CTA() {
   return (
-    <section className="py-28 px-5 border-t border-white/[0.06]">
+    <section className="py-32 px-5 border-t border-white/[0.06]">
       <div className="max-w-6xl mx-auto">
         <FadeIn>
-          <div className="relative rounded-3xl overflow-hidden gradient-border noise">
-            {/* Background */}
-            <div className="absolute inset-0 bg-gradient-to-br from-card via-card to-background" />
+          <div className="relative rounded-2xl border border-white/[0.08] bg-white/[0.02] overflow-hidden px-8 py-16 sm:px-16 flex flex-col items-start gap-8">
+            {/* Subtle top-left radial */}
             <div
-              className="absolute inset-0 pointer-events-none"
+              className="absolute top-0 left-0 w-96 h-64 pointer-events-none"
               style={{
                 background:
-                  "radial-gradient(ellipse 80% 60% at 50% 100%, oklch(0.72 0.19 277.1 / 15%) 0%, transparent 70%)",
+                  "radial-gradient(ellipse at top left, rgba(99,102,241,0.07) 0%, transparent 70%)",
               }}
+              aria-hidden="true"
             />
 
-            {/* Grid overlay */}
-            <div className="absolute inset-0 hero-grid opacity-50 pointer-events-none" />
-
-            <div className="relative z-10 flex flex-col items-center text-center px-6 py-20 gap-6">
-              <p className="text-xs text-primary uppercase tracking-widest font-medium">
-                Get started today
+            <div className="relative flex flex-col gap-4 max-w-xl">
+              <p className="text-xs text-indigo-400 uppercase tracking-widest font-medium">
+                Get started
               </p>
-              <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-balance max-w-2xl">
-                Your AI bill is higher
-                <br />
-                <span className="gradient-text">than it needs to be</span>
+              <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance">
+                Run your first AI spend audit in under 10 minutes
               </h2>
-              <p className="text-muted-foreground text-lg max-w-md text-balance">
-                Join 500+ engineering teams who cut their AI spend by an average of 34% in the
-                first month.
-              </p>
-
-              <div className="flex flex-wrap items-center justify-center gap-3 mt-2">
-                <Link href="/signup">
-                  <Button
-                    size="lg"
-                    className="gap-2 font-medium px-8 h-12"
-                    style={{ boxShadow: "0 0 32px -4px oklch(0.72 0.19 277.1 / 50%)" }}
-                  >
-                    Start your free audit
-                    <ArrowRight className="w-4 h-4" />
-                  </Button>
-                </Link>
-                <Link href="https://credex-app-six.vercel.app/" target="_blank" rel="noopener noreferrer">
-                  <Button
-                    size="lg"
-                    variant="outline"
-                    className="border-white/10 bg-white/5 hover:bg-white/10 text-foreground h-12 px-8"
-                  >
-                    View live demo
-                  </Button>
-                </Link>
-              </div>
-
-              <p className="text-xs text-muted-foreground">
-                Free up to $5k/mo spend · No credit card · Cancel anytime
+              <p className="text-base text-muted-foreground leading-relaxed">
+                Connect your providers, get a prioritized list of savings opportunities,
+                and share a finance-ready report — all for free.
               </p>
             </div>
+
+            <div className="relative flex flex-wrap items-center gap-3">
+              <Link href="/signup">
+                <Button size="lg" className="h-10 px-5 text-sm font-medium gap-2">
+                  Start Free Audit
+                  <ArrowRight className="w-4 h-4" aria-hidden="true" />
+                </Button>
+              </Link>
+              <Link href="https://credex-app-six.vercel.app/" target="_blank" rel="noopener noreferrer">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="h-10 px-5 text-sm font-medium border-white/[0.10] bg-transparent hover:bg-white/[0.04] text-muted-foreground hover:text-foreground"
+                >
+                  View Live Demo
+                </Button>
+              </Link>
+            </div>
+
+            <p className="relative text-xs text-muted-foreground/60">
+              No credit card required · Free to run your first audit · Cancel anytime
+            </p>
           </div>
         </FadeIn>
       </div>

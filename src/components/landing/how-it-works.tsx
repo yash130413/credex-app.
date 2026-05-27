@@ -1,58 +1,64 @@
 import { FadeIn, StaggerChildren, StaggerItem } from "@/components/shared/motion";
+import { Plug, ScanLine, FileBarChart } from "lucide-react";
 
 const steps = [
   {
-    step: "01",
-    title: "Connect your providers",
+    n: "01",
+    icon: Plug,
+    title: "Connect your AI tools",
     description:
-      "Paste your API keys or use OAuth. Credex connects to OpenAI, Anthropic, Gemini, Cohere, Mistral, and AWS Bedrock in under 2 minutes.",
+      "Add your providers in under 2 minutes. Credex connects to ChatGPT, Claude, Cursor, GitHub Copilot, and Gemini using read-only access — no changes to your workflows.",
   },
   {
-    step: "02",
-    title: "We audit your usage",
+    n: "02",
+    icon: ScanLine,
+    title: "Analyze spend and utilization",
     description:
-      "Credex pulls your full usage history, normalizes it across providers, and runs our waste-detection engine against every call.",
+      "Our deterministic audit engine runs 13 rule-based checks across seat utilization, vendor overlap, inactive licenses, and API vs subscription mismatches.",
   },
   {
-    step: "03",
-    title: "Review your findings",
+    n: "03",
+    icon: FileBarChart,
+    title: "Receive optimization recommendations",
     description:
-      "Get a prioritized list of savings opportunities — redundant calls, model mismatches, missing caches — each with an estimated dollar impact.",
-  },
-  {
-    step: "04",
-    title: "Implement & monitor",
-    description:
-      "Apply fixes with our code snippets or SDK wrappers. Set guardrails and watch your spend drop in the live dashboard.",
+      "Get a prioritized list of savings opportunities — each with a confidence score, affected user count, and estimated annual savings. Share directly with your CFO.",
   },
 ];
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="py-28 px-5 border-t border-white/[0.06]">
+    <section id="how-it-works" className="py-32 px-5 border-t border-white/[0.06]">
       <div className="max-w-6xl mx-auto">
-        <FadeIn className="text-center mb-16">
-          <p className="text-xs text-primary uppercase tracking-widest font-medium mb-3">How it works</p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-balance">
-            From connected to savings
-            <br />
-            <span className="gradient-text">in under 10 minutes</span>
+        <FadeIn className="mb-16">
+          <p className="text-xs text-indigo-400 uppercase tracking-widest font-medium mb-4">
+            How it works
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance max-w-xl">
+            From connected to savings in under 10 minutes
           </h2>
         </FadeIn>
 
-        <StaggerChildren className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 relative">
-          {/* Connecting line — desktop only */}
-          <div className="hidden lg:block absolute top-8 left-[12.5%] right-[12.5%] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent pointer-events-none" />
+        <StaggerChildren className="grid sm:grid-cols-3 gap-8 relative">
+          {/* Connector line — desktop */}
+          <div
+            className="hidden sm:block absolute top-5 left-[16.5%] right-[16.5%] h-px pointer-events-none"
+            style={{ background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent)" }}
+            aria-hidden="true"
+          />
 
           {steps.map((s) => (
-            <StaggerItem key={s.step}>
-              <div className="flex flex-col gap-4 relative">
-                {/* Step number bubble */}
-                <div className="w-14 h-14 rounded-2xl gradient-border bg-card flex items-center justify-center shrink-0">
-                  <span className="text-sm font-bold text-primary font-mono">{s.step}</span>
+            <StaggerItem key={s.n}>
+              <div className="flex flex-col gap-5">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
+                    <s.icon className="w-4.5 h-4.5 text-indigo-400" aria-hidden="true" />
+                  </div>
+                  <span className="text-xs font-mono font-semibold text-muted-foreground/50 tracking-widest">
+                    {s.n}
+                  </span>
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-semibold text-[15px] tracking-tight">{s.title}</h3>
+                  <h3 className="font-medium text-sm tracking-tight">{s.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{s.description}</p>
                 </div>
               </div>
