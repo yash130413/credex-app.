@@ -9,17 +9,14 @@ import type { WorkspaceMetrics } from "@/types/audit-engine";
 
 const bodySchema = z.object({
   title: z.string().min(1).max(100),
-  organizationId: z.string().uuid(),
+  organizationId: z.string().uuid().optional(),
   workspaces: z.array(z.any()).min(1),
 });
 
 export async function POST(req: NextRequest) {
-  // 1. Auth
+  // 1. Auth (optional for public audits)
   const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
-  if (!user) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
 
   // 2. Parse + validate
   let body: unknown;
@@ -31,51 +28,66 @@ export async function POST(req: NextRequest) {
 
   const parsed = bodySchema.safeParse(body);
   if (!parsed.success) {
+    console.error("Validation error:", parsed.error.flatten());
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 422 });
   }
 
   const { title, organizationId, workspaces } = parsed.data;
 
-  // 3. Run deterministic audit engine server-side
-  const result = runAuditEngine(workspaces as WorkspaceMetrics[]);
+  // Use a default org ID if not provided
+  const orgId = organizationId || "00000000-0000-0000-0000-000000000000";
 
-  // 4. Generate AI summary (runs concurrently — never blocks on failure)
-  const { summary, source: summarySource } = await generateAuditSummary({
-    auditTitle: title,
-    result,
-  });
+  try {
+    // 3. Run deterministic audit engine server-side
+    const result = runAuditEngine(workspaces as WorkspaceMetrics[]);
 
-  // 5. Persist audit + recommendations + summary atomically
-  const { auditId, shareId } = await saveAuditReport({
-    title,
-    organizationId,
-    workspaces: workspaces as WorkspaceMetrics[],
-    result,
-    aiSummary: summary,
-  });
+    // 4. Generate AI summary (runs concurrently — never blocks on failure)
+    const { summary, source: summarySource } = await generateAuditSummary({
+      auditTitle: title,
+      result,
+    });
 
-  const shareUrl = `${req.nextUrl.origin}/results/${shareId}`;
+    // 5. Persist audit + recommendations + summary atomically
+    const { auditId, shareId } = await saveAuditReport({
+      title,
+      organizationId: orgId,
+      workspaces: workspaces as WorkspaceMetrics[],
+      result,
+      aiSummary: summary,
+      userId: user?.id,
+    });
 
-  // Fire audit email non-blocking — never delays the response
-  void sendAuditEmail({
-    to: user.email!,
-    companyName: user.user_metadata?.full_name ?? user.email!,
-    auditTitle: title,
-    monthlySavings: result.totalMonthlySavings,
-    annualSavings: result.totalAnnualSavings,
-    totalSpend: result.totalCurrentSpend,
-    optimizationScore: result.optimizationScore,
-    topRecommendations: result.recommendations.slice(0, 3).map((r) => ({
-      title: r.title,
-      provider: r.provider,
-      priority: r.priority,
-      monthlySavings: r.monthlySavings,
-    })),
-    auditUrl: shareUrl,
-  });
+    const shareUrl = `${req.nextUrl.origin}/results/${shareId}`;
 
-  return NextResponse.json(
-    { auditId, shareId, shareUrl, result, summary, summarySource },
-    { status: 201 }
-  );
+    // Fire audit email non-blocking — never delays the response
+    if (user?.email) {
+      void sendAuditEmail({
+        to: user.email,
+        companyName: user.user_metadata?.full_name ?? user.email,
+        auditTitle: title,
+        monthlySavings: result.totalMonthlySavings,
+        annualSavings: result.totalAnnualSavings,
+        totalSpend: result.totalCurrentSpend,
+        optimizationScore: result.optimizationScore,
+        topRecommendations: result.recommendations.slice(0, 3).map((r) => ({
+          title: r.title,
+          provider: r.provider,
+          priority: r.priority,
+          monthlySavings: r.monthlySavings,
+        })),
+        auditUrl: shareUrl,
+      });
+    }
+
+    return NextResponse.json(
+      { auditId, shareId, shareUrl, result, summary, summarySource },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error("Audit error:", error);
+    return NextResponse.json(
+      { error: error instanceof Error ? error.message : "Internal server error" },
+      { status: 500 }
+    );
+  }
 }

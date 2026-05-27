@@ -10,6 +10,7 @@ export interface SaveAuditInput {
   workspaces: WorkspaceMetrics[];
   result: AuditEngineResult;
   aiSummary?: string;
+  userId?: string;
 }
 
 export interface SaveAuditOutput {
@@ -21,9 +22,6 @@ export interface SaveAuditOutput {
 
 export async function saveAuditReport(input: SaveAuditInput): Promise<SaveAuditOutput> {
   const supabase = await createClient();
-
-  const { data: { user } } = await supabase.auth.getUser();
-  if (!user) throw new Error("Unauthenticated");
 
   // Derive aggregate metrics from workspaces for the audit row
   const avgUtilization =
@@ -43,13 +41,16 @@ export async function saveAuditReport(input: SaveAuditInput): Promise<SaveAuditO
       utilization_rate: Math.round(avgUtilization * 100) / 100,
       optimization_score: input.result.optimizationScore,
       ai_summary: input.aiSummary ?? null,
-      is_public: false,
-      created_by: user.id,
+      is_public: true,
+      created_by: input.userId ?? "00000000-0000-0000-0000-000000000000",
     })
     .select("id, share_id")
     .single();
 
-  if (auditError) throw auditError;
+  if (auditError) {
+    console.error("Audit insert error:", auditError);
+    throw auditError;
+  }
 
   // 2. Bulk-insert recommendations tied to the new audit
   const recommendationRows: Omit<AuditRecommendationRow, "id" | "created_at">[] =

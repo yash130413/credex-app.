@@ -85,17 +85,20 @@ export default function AuditFormPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           title: `AI Audit - ${new Date().toLocaleDateString()}`,
-          organizationId: "00000000-0000-0000-0000-000000000000",
           workspaces,
         }),
       });
 
-      if (!response.ok) throw new Error("Audit failed");
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("API Error:", errorData);
+        throw new Error("Audit failed");
+      }
 
       const data = await response.json();
       
-      // Redirect to results page
-      router.push(`/results/${data.auditId}`);
+      // Redirect to results page using shareId
+      router.push(`/results/${data.shareId}`);
     } catch (error) {
       console.error("Audit submission error:", error);
       alert("Failed to run audit. Please try again.");
