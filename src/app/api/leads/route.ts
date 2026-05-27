@@ -1,24 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { leadCaptureSchema } from "@/lib/validators";
-import { rateLimit, getClientIp } from "@/lib/rate-limit";
+import { checkRateLimit, getRateLimitIdentifier } from "@/lib/rate-limit";
 import { isHoneypotTripped } from "@/lib/honeypot";
 import { sendLeadEmail } from "@/lib/mail/send-lead-email";
 import { supabaseAdmin } from "@/lib/supabase/admin";
 
 export async function POST(req: NextRequest) {
   // ── 1. Rate limit — 5 submissions per IP per 10 minutes ──────────────────
-  const ip = getClientIp(req);
-  const { allowed, resetAt } = rateLimit(`leads:${ip}`, {
-    limit: 5,
-    windowMs: 10 * 60 * 1000,
-  });
+  const identifier = getRateLimitIdentifier(req);
+  const { success, remaining } = checkRateLimit(`leads:${identifier}`);
 
-  if (!allowed) {
+  if (!success) {
     return NextResponse.json(
       { error: "Too many requests. Please try again later." },
       {
         status: 429,
-        headers: { "Retry-After": String(Math.ceil((resetAt - Date.now()) / 1000)) },
+        headers: { "X-RateLimit-Remaining": String(remaining) },
       }
     );
   }
