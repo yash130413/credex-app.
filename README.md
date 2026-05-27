@@ -26,7 +26,29 @@ As AI adoption scales inside organizations, software costs across AI assistants 
 
 Credex gives engineering and finance teams a clear picture of their AI software spend — surfacing underutilized seats, overlapping vendor subscriptions, and optimization opportunities with explainable, finance-friendly recommendations.
 
-The platform combines a **deterministic rule-based audit engine** with a modern SaaS dashboard, public report sharing, and transactional email delivery — built as a production-grade full-stack application.
+**The core audit tool is completely free and requires no signup.** Users can run an instant audit, see their savings, and optionally provide an email to save the report. The platform also includes authentication and dashboard features for users who want to save multiple audits and track optimization over time.
+
+---
+
+## Product Architecture
+
+### Free Public Audit (No Login Required)
+The primary user flow is completely public:
+1. Visit landing page → Click "Start Free Audit"
+2. Fill out audit form at `/audit-form` (no authentication)
+3. See instant results with savings breakdown
+4. Optionally provide email to save report
+
+**This matches the assignment requirement: "No login required to use the tool. Email is captured after value is shown, never before."**
+
+### Optional Dashboard (Login Required)
+For users who want to:
+- Save multiple audits
+- Track optimization over time
+- Access historical reports
+- Manage team settings
+
+Authentication routes (`/login`, `/signup`, `/dashboard`) exist for these future features but are NOT required for the core audit functionality.
 
 ---
 
@@ -254,6 +276,14 @@ Set the same variables from `.env.local` inside the Vercel project dashboard und
 The audit engine uses explicit rule-based logic rather than prompting an LLM for every recommendation.
 
 **Why:** Explainability matters in finance contexts. Deterministic outputs are consistent, auditable, and don't hallucinate savings figures. The tradeoff is that rules require manual expansion as new providers or pricing models emerge.
+
+### Public-first architecture with optional authentication
+
+The core audit tool works without any login or signup. Authentication is optional and only used for saving multiple audits and accessing dashboard features.
+
+**Why:** Matches the assignment requirement for a viral free tool. Email is captured AFTER value is shown (via modal after 60% scroll on results page), never before. Login/signup routes exist for future features (audit history, team management) but are not part of the main audit flow.
+
+**Tradeoff:** More complex routing (public + authenticated paths) but enables both viral growth (no friction) and future monetization (premium features).
 
 ### Supabase over a custom backend
 

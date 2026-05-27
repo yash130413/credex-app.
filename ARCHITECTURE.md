@@ -2,10 +2,13 @@
 
 ## Overview
 
-Credex is a production-grade AI spend optimization SaaS. It audits an organization's AI tooling subscriptions — ChatGPT, Claude, Cursor, GitHub Copilot, Gemini — and surfaces savings opportunities through a deterministic rule engine, not a generative AI black box.
+Credex is a production-grade AI spend optimization tool with a dual architecture: a **free public audit tool** (no login required) and an **optional authenticated dashboard** for power users.
 
-The architecture is built around four principles:
+The core audit functionality is completely public — users can run audits, see results, and share reports without creating an account. Authentication is only required for advanced features like audit history, team management, and recurring monitoring.
 
+The architecture is built around five principles:
+
+- **Public-first** — the main audit flow requires zero authentication; email captured AFTER value shown
 - **Explainability** — every recommendation traces back to a named rule and a concrete savings formula
 - **Security** — all sensitive keys and audit logic run server-side only
 - **Low operational complexity** — managed infrastructure (Vercel + Supabase + Resend) over self-hosted services
@@ -21,25 +24,31 @@ graph TD
 
     B --> C{Route Type}
 
-    C -->|Protected pages| D[Middleware\nSupabase Auth Check]
-    C -->|API Routes /\nServer Actions| E[API Layer]
-    C -->|Public audit pages| F[Public Report Renderer]
+    C -->|Public audit form| H[/audit-form\nNo Auth Required]
+    C -->|Public results| F[/results/[id]\nNo Auth Required]
+    C -->|Protected dashboard| D[Middleware\nSupabase Auth Check]
+    C -->|API Routes| E[API Layer]
 
+    H --> E
     D -->|Authenticated| E
     D -->|Unauthenticated| G[Redirect → /login]
 
-    E --> H[Validation Layer\nZod]
-    H --> I[Audit Engine\nDeterministic Rules]
-    H --> J[Anthropic API\nNarrative Generation]
-    H --> K[Resend\nTransactional Email]
+    E --> I[Validation Layer\nZod]
+    I --> J[Audit Engine\nDeterministic Rules]
+    I --> K[Anthropic API\nNarrative Generation]
+    I --> L[Resend\nTransactional Email]
 
-    I --> L[(Supabase\nPostgreSQL + RLS)]
-    J --> L
-    K --> M[User Inbox]
+    J --> M[(Supabase\nPostgreSQL + RLS)]
+    K --> M
+    L --> N[User Inbox]
 
-    L --> F
+    M --> F
     F --> A
 ```
+
+**Key architectural decision:** The primary user flow (`/audit-form` → `/results/[id]`) bypasses authentication entirely. This matches the assignment requirement: "No login required to use the tool. Email is captured after value is shown, never before." 
+
+Authentication routes (`/login`, `/signup`, `/dashboard`) exist for future features (audit history, team management, recurring monitoring) but are NOT part of the core audit flow.
 
 ---
 
@@ -176,7 +185,9 @@ Incoming request
       │
       ▼
 middleware.ts
-  ├── Skip: /audit/* (public report pages)
+  ├── Skip: /audit-form (public audit form - NO AUTH)
+  ├── Skip: /results/* (public report pages - NO AUTH)
+  ├── Skip: /audit/* (public shareable reports - NO AUTH)
   ├── Skip: /_next/static, /_next/image, favicon.ico
   └── Protected: /dashboard, /audits, /integrations, /settings
         │
@@ -188,6 +199,8 @@ middleware.ts
 ```
 
 The middleware uses `@supabase/ssr` to read and refresh the session from cookies on every request — no client-side auth state is trusted for route protection.
+
+**Important:** The core audit flow (`/audit-form` → `/results/[id]`) is completely public. Authentication is only enforced for dashboard features (`/dashboard/*`). This dual-path architecture enables both viral growth (no friction for first-time users) and future monetization (premium features behind auth).
 
 ---
 
