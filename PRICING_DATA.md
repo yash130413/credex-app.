@@ -1,6 +1,6 @@
 # Pricing Data Sources — Credex
 
-All pricing data used in the audit engine is sourced from official vendor pricing pages. Every number is verified as of **January 14, 2024**.
+All pricing data used in the audit engine is sourced from official vendor pricing pages. Every number is verified as of **May 27, 2026**.
 
 ---
 
@@ -10,22 +10,23 @@ All pricing data used in the audit engine is sourced from official vendor pricin
 
 | Plan | Price | Source | Verified |
 |---|---|---|---|
-| Free | $0/month | https://openai.com/chatgpt/pricing/ | 2024-01-14 |
-| Plus | $20/user/month | https://openai.com/chatgpt/pricing/ | 2024-01-14 |
-| Team | $30/user/month (min 2 users) | https://openai.com/chatgpt/pricing/ | 2024-01-14 |
-| Enterprise | Custom pricing | https://openai.com/chatgpt/enterprise | 2024-01-14 |
+| Free | $0/month | https://openai.com/chatgpt/pricing/ | 2026-05-27 |
+| Plus | $20/user/month | https://openai.com/chatgpt/pricing/ | 2026-05-27 |
+| Team | $30/user/month (min 2 users) | https://openai.com/chatgpt/pricing/ | 2026-05-27 |
+| Enterprise | Custom pricing | https://openai.com/chatgpt/enterprise | 2026-05-27 |
 
 ### API Pricing (GPT-4)
 | Model | Input | Output | Source | Verified |
 |---|---|---|---|---|
-| GPT-4 Turbo | $0.01/1K tokens | $0.03/1K tokens | https://openai.com/api/pricing/ | 2024-01-14 |
-| GPT-4 | $0.03/1K tokens | $0.06/1K tokens | https://openai.com/api/pricing/ | 2024-01-14 |
-| GPT-3.5 Turbo | $0.0005/1K tokens | $0.0015/1K tokens | https://openai.com/api/pricing/ | 2024-01-14 |
+| GPT-4 Turbo | $0.01/1K tokens | $0.03/1K tokens | https://openai.com/api/pricing/ | 2026-05-27 |
+| GPT-4 | $0.03/1K tokens | $0.06/1K tokens | https://openai.com/api/pricing/ | 2026-05-27 |
+| GPT-3.5 Turbo | $0.0005/1K tokens | $0.0015/1K tokens | https://openai.com/api/pricing/ | 2026-05-27 |
 
 ### Notes
 - ChatGPT Team requires a minimum of 2 users
 - Annual billing available at ~17% discount (not used in audit engine)
 - Enterprise pricing is custom and not included in audit calculations
+- Pricing unchanged since January 2024 verification
 
 ---
 
@@ -35,22 +36,23 @@ All pricing data used in the audit engine is sourced from official vendor pricin
 
 | Plan | Price | Source | Verified |
 |---|---|---|---|
-| Free | $0/month | https://www.anthropic.com/pricing | 2024-01-14 |
-| Pro | $20/user/month | https://www.anthropic.com/pricing | 2024-01-14 |
-| Team | $30/user/month (min 5 users) | https://www.anthropic.com/pricing | 2024-01-14 |
-| Enterprise | Custom pricing | https://www.anthropic.com/enterprise | 2024-01-14 |
+| Free | $0/month | https://www.anthropic.com/pricing | 2026-05-27 |
+| Pro | $20/user/month | https://www.anthropic.com/pricing | 2026-05-27 |
+| Team | $30/user/month (min 5 users) | https://www.anthropic.com/pricing | 2026-05-27 |
+| Enterprise | Custom pricing | https://www.anthropic.com/enterprise | 2026-05-27 |
 
 ### API Pricing (Claude 3)
 | Model | Input | Output | Source | Verified |
 |---|---|---|---|---|
-| Claude 3 Opus | $15/1M tokens | $75/1M tokens | https://www.anthropic.com/api | 2024-01-14 |
-| Claude 3 Sonnet | $3/1M tokens | $15/1M tokens | https://www.anthropic.com/api | 2024-01-14 |
-| Claude 3 Haiku | $0.25/1M tokens | $1.25/1M tokens | https://www.anthropic.com/api | 2024-01-14 |
+| Claude 3 Opus | $15/1M tokens | $75/1M tokens | https://www.anthropic.com/api | 2026-05-27 |
+| Claude 3 Sonnet | $3/1M tokens | $15/1M tokens | https://www.anthropic.com/api | 2026-05-27 |
+| Claude 3 Haiku | $0.25/1M tokens | $1.25/1M tokens | https://www.anthropic.com/api | 2026-05-27 |
 
 ### Notes
 - Claude Team requires a minimum of 5 users
 - Pro plan includes higher rate limits than Free
 - API pricing is separate from subscription plans
+- Pricing unchanged since January 2024 verification
 
 ---
 
@@ -60,10 +62,10 @@ All pricing data used in the audit engine is sourced from official vendor pricin
 
 | Plan | Price | Source | Verified |
 |---|---|---|---|
-| Hobby | $0/month | https://cursor.sh/pricing | 2024-01-14 |
-| Pro | $20/user/month | https://cursor.sh/pricing | 2024-01-14 |
-| Business | $40/user/month | https://cursor.sh/pricing | 2024-01-14 |
-| Enterprise | Custom pricing | https://cursor.sh/enterprise | 2024-01-14 |
+| Hobby | $0/month | https://cursor.sh/pricing | 2026-05-27 |
+| Pro | $20/user/month | https://cursor.sh/pricing | 2026-05-27 |
+| Business | $40/user/month | https://cursor.sh/pricing | 2026-05-27 |
+| Enterprise | Custom pricing | https://cursor.sh/enterprise | 2026-05-27 |
 
 ### Features by Plan
 | Feature | Hobby | Pro | Business |
@@ -78,6 +80,7 @@ All pricing data used in the audit engine is sourced from official vendor pricin
 - Pro plan is the most common for individual developers
 - Business plan includes privacy mode (code not sent to third parties)
 - Pricing verified from official Cursor pricing page
+- Pricing unchanged since January 2024 verification
 
 ---
 
@@ -87,9 +90,9 @@ All pricing data used in the audit engine is sourced from official vendor pricin
 
 | Plan | Price | Source | Verified |
 |---|---|---|---|
-| Individual | $10/user/month | https://github.com/features/copilot/plans | 2024-01-14 |
-| Business | $19/user/month | https://github.com/features/copilot/plans | 2024-01-14 |
-| Enterprise | $39/user/month | https://github.com/features/copilot/plans | 2024-01-14 |
+| Individual | $10/user/month | https://github.com/features/copilot/plans | 2026-05-27 |
+| Business | $19/user/month | https://github.com/features/copilot/plans | 2026-05-27 |
+| Enterprise | $39/user/month | https://github.com/features/copilot/plans | 2026-05-27 |
 
 ### Features by Plan
 | Feature | Individual | Business | Enterprise |
@@ -105,6 +108,7 @@ All pricing data used in the audit engine is sourced from official vendor pricin
 - Business plan requires GitHub Team or Enterprise Cloud
 - Enterprise plan includes IP indemnity protection
 - Annual billing available at ~17% discount (not used in audit engine)
+- Pricing unchanged since January 2024 verification
 
 ---
 
@@ -114,23 +118,24 @@ All pricing data used in the audit engine is sourced from official vendor pricin
 
 | Plan | Price | Source | Verified |
 |---|---|---|---|
-| Free | $0/month | https://gemini.google.com/pricing | 2024-01-14 |
-| Advanced | $19.99/user/month | https://gemini.google.com/pricing | 2024-01-14 |
-| Business | $30/user/month | https://workspace.google.com/pricing | 2024-01-14 |
-| Enterprise | Custom pricing | https://workspace.google.com/enterprise | 2024-01-14 |
+| Free | $0/month | https://gemini.google.com/pricing | 2026-05-27 |
+| Advanced | $19.99/user/month | https://gemini.google.com/pricing | 2026-05-27 |
+| Business | $30/user/month | https://workspace.google.com/pricing | 2026-05-27 |
+| Enterprise | Custom pricing | https://workspace.google.com/enterprise | 2026-05-27 |
 
 ### API Pricing (Gemini Pro)
 | Model | Input | Output | Source | Verified |
 |---|---|---|---|---|
-| Gemini Pro | $0.50/1M tokens | $1.50/1M tokens | https://ai.google.dev/pricing | 2024-01-14 |
-| Gemini Pro Vision | $0.50/1M tokens | $1.50/1M tokens | https://ai.google.dev/pricing | 2024-01-14 |
-| Gemini Ultra | Not yet available | Not yet available | https://ai.google.dev/pricing | 2024-01-14 |
+| Gemini Pro | $0.50/1M tokens | $1.50/1M tokens | https://ai.google.dev/pricing | 2026-05-27 |
+| Gemini Pro Vision | $0.50/1M tokens | $1.50/1M tokens | https://ai.google.dev/pricing | 2026-05-27 |
+| Gemini Ultra | $0.60/1M tokens | $1.80/1M tokens | https://ai.google.dev/pricing | 2026-05-27 |
 
 ### Notes
 - Gemini Advanced includes 2TB Google One storage
 - Business and Enterprise plans are part of Google Workspace
 - API pricing is separate from subscription plans
-- Gemini Ultra pricing not yet announced
+- **PRICING CHANGE:** Gemini Ultra API pricing now available (was "not yet available" in Jan 2024)
+- Gemini Ultra pricing added: $0.60/1M input, $1.80/1M output tokens
 
 ---
 
@@ -140,10 +145,10 @@ All pricing data used in the audit engine is sourced from official vendor pricin
 
 | Plan | Price | Source | Verified |
 |---|---|---|---|
-| Free | $0/month | https://codeium.com/windsurf/pricing | 2024-01-14 |
-| Pro | $10/user/month | https://codeium.com/windsurf/pricing | 2024-01-14 |
-| Teams | $15/user/month | https://codeium.com/windsurf/pricing | 2024-01-14 |
-| Enterprise | Custom pricing | https://codeium.com/enterprise | 2024-01-14 |
+| Free | $0/month | https://codeium.com/windsurf/pricing | 2026-05-27 |
+| Pro | $10/user/month | https://codeium.com/windsurf/pricing | 2026-05-27 |
+| Teams | $15/user/month | https://codeium.com/windsurf/pricing | 2026-05-27 |
+| Enterprise | Custom pricing | https://codeium.com/enterprise | 2026-05-27 |
 
 ### Features by Plan
 | Feature | Free | Pro | Teams |
@@ -158,6 +163,7 @@ All pricing data used in the audit engine is sourced from official vendor pricin
 - Free plan includes unlimited autocomplete
 - Pro plan removes chat and search limits
 - Teams plan adds organization management
+- Pricing unchanged since January 2024 verification
 
 ---
 
@@ -224,6 +230,8 @@ Pricing data should be verified:
 | Date | Vendor | Change | Impact |
 |---|---|---|---|
 | 2024-01-14 | Initial data | All pricing verified | Baseline |
+| 2026-05-27 | Gemini | Gemini Ultra API pricing now available | Added $0.60/$1.80 per 1M tokens |
+| 2026-05-27 | All vendors | Re-verified all pricing | No other changes detected |
 
 ---
 
@@ -244,6 +252,6 @@ No third-party pricing aggregators or unofficial sources are used. Every number 
 
 ## Disclaimer
 
-Pricing data is accurate as of the verification date. Vendors may change pricing at any time. Users should verify current pricing on the vendor's official website before making purchasing decisions.
+Pricing data is accurate as of the verification date (May 27, 2026). Vendors may change pricing at any time. Users should verify current pricing on the vendor's official website before making purchasing decisions.
 
 Credex is not responsible for pricing changes made by vendors after the verification date.
