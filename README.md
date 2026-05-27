@@ -32,17 +32,18 @@ The platform combines a **deterministic rule-based audit engine** with a modern 
 
 ## Screenshots
 
-### Dashboard
+**Note:** Screenshots will be added before final submission. The application is deployed and working at the live demo URL above.
 
+<!-- Screenshots to be added:
+### Dashboard
 <img width="100%" alt="Dashboard" src="./screenshots/dashboard.png" />
 
 ### Audit Summary
-
 <img width="100%" alt="Audit Summary" src="./screenshots/audit-summary.png" />
 
 ### Recommendations
-
 <img width="100%" alt="Recommendations" src="./screenshots/recommendations.png" />
+-->
 
 ---
 
