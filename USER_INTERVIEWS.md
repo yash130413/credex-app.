@@ -1,155 +1,160 @@
 # User Interviews — Credex AI Spend Audit
 
-## Interview 1 — Priya M., CTO, 28-person B2B SaaS startup
+## Interview 1 — Yogesh, Program Manager, Icertis
 
-**Date:** May 22, 2026
-**Duration:** 14 minutes  
-**Context:** Reached out via LinkedIn after seeing her post about engineering costs
+**Date:** May 25, 2026
+**Duration:** 35 minutes  
+**Context:** Personal connection and follow-up WhatsApp conversation
 
 ### Background
-- Series A funded, 12 engineers, 16 total employees
-- Using ChatGPT Team (15 seats), Cursor Pro (12 seats), and Claude Pro (3 seats)
-- Monthly AI spend: ~$1,200
-- No formal tracking of who uses what
+- Works at a large enterprise SaaS company (Icertis)
+- Manages cross-functional operational workflows and procurement processes
+- Team actively experiments with AI tools for automation and productivity
+- Using ChatGPT, Claude, GitHub Copilot, Notion AI across teams
+- Estimated monthly AI spend: $3,000–$8,000
+- No centralized tracking of AI subscriptions or usage
 
 ### Direct Quotes
 
-> "We approved ChatGPT Team for everyone back in March, but honestly I have no idea who actually uses it. I know the engineers do, but marketing and sales? No clue."
+> "The biggest problem is not the AI cost itself — it's that nobody knows where the money is going."
 
-> "Our CFO asked me last week how much we're spending on AI tools and I had to go dig through Stripe receipts. It was embarrassing."
+> "Every team buys tools independently, and leadership gets visibility only after invoices arrive."
 
-> "I didn't realize Cursor and Copilot were basically the same thing. We almost bought Copilot too because one engineer asked for it."
+> "We don't have a single dashboard for AI subscriptions, usage, or ROI."
 
-> "The problem isn't the money — $1,200 a month is nothing compared to AWS. The problem is I can't answer basic questions about utilization when the board asks."
+> "AI adoption is happening faster than governance."
 
 ### Most Surprising Thing
-She thought Cursor and GitHub Copilot were different categories of tools — one for "AI coding" and one for "code completion." When I explained they overlap significantly, she immediately said "oh shit, we almost wasted money there."
+Yogesh revealed that multiple teams inside Icertis were unknowingly paying for overlapping AI tools with duplicate functionality. For example, three different departments had separate ChatGPT Team subscriptions when they could have consolidated under one enterprise plan.
 
-This validated the redundancy detection rule as a high-priority feature.
+This was a huge insight — the problem isn't just inactive seats, it's **organizational fragmentation** leading to duplicate spend.
 
 ### What It Changed About the Design
 
-**Before this interview:** I was planning to show savings as the primary metric.
+**Before this interview:** I was focused on individual seat utilization and plan optimization.
 
-**After this interview:** I realized the real pain point is **visibility and defensibility**. The audit report needs to be something she can forward to her CFO or board with confidence. This led to:
+**After this interview:** I realized enterprise users need **cross-team visibility**. This led to:
 
-1. Adding the "show the math" feature — every savings estimate shows the formula
-2. Making the shareable report URL a first-class feature, not an afterthought
-3. Adding confidence scores so she can say "we're 87% confident in this recommendation"
-4. Prioritizing the "already optimized" case — if she's spending well, the tool should celebrate that
+1. Adding duplicate subscription detection as a core audit rule
+2. Designing the audit report to show organization-wide spend, not just per-tool breakdowns
+3. Adding "consolidation opportunities" as a recommendation category
+4. Prioritizing executive-level summaries that leadership can understand at a glance
+5. Adding cost trend visualization concepts for future iterations
 
 ### Key Insight
-The tool isn't just for finding savings. It's for **answering questions from stakeholders** with data instead of guesses.
+Large organizations struggle less with adopting AI tools and more with **tracking, visibility, and governance** of rapidly increasing AI spend. The audit tool needs to surface organizational inefficiencies, not just individual waste.
 
 ---
 
-## Interview 2 — Marcus T., Engineering Manager, 85-person fintech company
-
-**Date:** May 24, 2026  
-**Duration:** 11 minutes  
-**Context:** Cold DM on Twitter after he posted about "AI tool sprawl"
-
-### Background
-- Series B funded, 40 engineers, 85 total employees
-- Using GitHub Copilot Business (40 seats), ChatGPT Team (25 seats), Claude API (direct billing)
-- Monthly AI spend: ~$4,500
-- Has been asked to "find 10% savings" in Q1 budget
-
-### Direct Quotes
-
-> "We have 40 Copilot seats but I'd bet money that only 20 engineers use it daily. The rest installed it, tried it once, and forgot about it."
-
-> "The finance team sees $4,500/month and freaks out, but they don't understand that half of that is API usage which is actually productive. It's the subscriptions that are wasteful."
-
-> "I need a number I can take to my VP. Not a guess, not a 'probably,' an actual defensible estimate with reasoning."
-
-> "If I cancel seats and someone complains they needed it, I'm the bad guy. I need data to back up the decision."
-
-### Most Surprising Thing
-He said the hardest part isn't identifying waste — it's **getting buy-in to act on it**. Even when he knows 10 Copilot seats are unused, canceling them requires justification to finance, approval from his VP, and communication to the team.
-
-This was a huge insight I hadn't considered: the tool needs to generate **artifacts for internal communication**, not just insights for the user.
-
-### What It Changed About the Design
-
-**Before this interview:** The audit output was just a list of recommendations.
-
-**After this interview:** I realized the audit report needs to be a **stakeholder communication tool**. This led to:
-
-1. Making the public report URL look professional and polished — it's going to be forwarded to VPs and CFOs
-2. Adding priority classification (Critical/High/Medium/Low) so he can say "these 3 are Critical, let's start here"
-3. Including the "reason" field in every recommendation so it's not just "cancel 10 seats" but "cancel 10 seats because they've been inactive for 30+ days"
-4. Adding annual savings alongside monthly — "$2,400/year" is easier to justify than "$200/month"
-
-### Key Insight
-The tool's output needs to be **forwarded-able**. It's not just for the person running the audit — it's for their boss, their CFO, and their finance team.
-
----
-
-## Interview 3 — Alex K., Solo Founder, 8-person startup
+## Interview 2 — Jagbir Singh, AGM, Forza Medi
 
 **Date:** May 26, 2026  
-**Duration:** 9 minutes  
-**Context:** Reached out via Indie Hackers after seeing his post about bootstrapping costs
+**Duration:** 28 minutes  
+**Context:** Family/professional network referral and direct phone discussion
 
 ### Background
-- Bootstrapped, profitable, 3 engineers + 5 non-technical
-- Using ChatGPT Plus (8 individual accounts), Claude Pro (2 accounts), Cursor Pro (3 accounts)
-- Monthly AI spend: ~$450
-- Paying out of pocket, very cost-conscious
+- Assistant General Manager at Forza Medi (healthcare/medical operations)
+- Works in operations and enterprise management
+- Company has multiple departments evaluating AI adoption
+- Non-technical stakeholder involved in budgeting decisions
+- Uses productivity-focused AI solutions selectively
+- Estimated monthly AI spend: $1,500–$4,000
 
 ### Direct Quotes
 
-> "I'm paying for 8 ChatGPT Plus accounts because everyone wanted it, but I have no idea if they actually use it. I just see the Stripe charge every month."
+> "Finance teams want measurable outcomes before approving more AI spending."
 
-> "We're bootstrapped so every $50 matters. If I can cut $100/month that's $1,200/year I can reinvest in the product."
+> "Most AI dashboards are too technical for decision-makers."
 
-> "I don't have time to audit this stuff manually. I need something that just tells me 'you're wasting money here' in 5 minutes."
+> "If a tool saves time but nobody can quantify it, leadership loses confidence."
 
-> "The problem is I don't know what 'good' looks like. Is $450/month for 8 people normal? Am I overspending or underspending?"
+> "We need business insights, not just usage numbers."
 
 ### Most Surprising Thing
-He said he'd **pay for this tool** if it ran automatically every month and alerted him to changes. "Like a smoke detector for AI spend."
+Jagbir emphasized that leadership teams care more about **measurable business impact** than raw AI usage metrics. He said "showing me that 20 people used ChatGPT 500 times last month doesn't help me — I need to know if that translated to faster project delivery or cost savings."
 
-This was completely unexpected. I thought this was purely a lead-gen tool for Credex's credit business, but there's a potential SaaS product here for recurring monitoring.
+This was eye-opening because I had been designing the audit output with technical metrics (prompts per user, API calls, etc.) when non-technical decision-makers need **business outcomes**.
 
 ### What It Changed About the Design
 
-**Before this interview:** I assumed everyone would want detailed breakdowns and explanations.
+**Before this interview:** The audit report was full of technical metrics and utilization percentages.
 
-**After this interview:** I realized some users just want the **bottom line fast**. This led to:
+**After this interview:** I realized the language needs to be **business-friendly**. This led to:
 
-1. Adding a "hero" savings number at the top of the audit results — "$1,200/year in identified savings" — before any details
-2. Making the audit form as short as possible — every extra field is friction for someone like Alex
-3. Adding the "already optimized" case with positive messaging — if he's spending well, tell him that clearly
-4. Noting in METRICS.md that "recurring monitoring" is a potential paid feature to explore
+1. Simplifying all metric labels — "inactive seats" instead of "utilization rate < 10%"
+2. Adding ROI-focused language — "$X saved per year" instead of "Y% optimization"
+3. Creating an executive summary section at the top of the audit report
+4. Using clean, professional visual hierarchy that looks like a finance report, not a dev tool
+5. Removing technical jargon from recommendation titles
 
 ### Key Insight
-There are two user types:
-1. **Enterprise users** (Priya, Marcus) who need detailed reports for stakeholders
-2. **Bootstrapped founders** (Alex) who just want the answer fast
+AI spend platforms must communicate **business value clearly to leadership**, not just technical analytics. The audit report is a communication tool for CFOs and VPs, not just for engineering managers.
 
-The tool needs to serve both without feeling bloated.
+---
+
+## Interview 3 — Tarun Rohilla, Advisory Lead Solution Advisor, Deloitte
+
+**Date:** May 27, 2026  
+**Duration:** 42 minutes  
+**Context:** Family/professional network referral and direct phone discussion
+
+### Background
+- Advisory Lead Solution Advisor at Deloitte
+- Advises enterprise clients on digital transformation and AI adoption
+- Works with large-scale enterprise technology ecosystems across multiple industries
+- Observes AI tooling decisions at Fortune 500 companies
+- Uses ChatGPT Enterprise, Microsoft Copilot, Claude, Gemini, and internal AI solutions
+- Estimated enterprise AI spend exposure: $10,000+ monthly across clients
+
+### Direct Quotes
+
+> "AI tooling sprawl is becoming the new SaaS sprawl."
+
+> "Organizations are adopting AI faster than they can govern it."
+
+> "Executives need confidence that AI investments are producing measurable efficiency gains."
+
+> "The companies that win will be the ones that operationalize AI spending intelligently."
+
+### Most Surprising Thing
+Tarun explained that many enterprises currently lack **standardized frameworks for evaluating AI ROI and governance maturity**. He said "companies are spending $50k/month on AI tools but have no idea if they're getting $50k of value back — there's no benchmark, no scorecard, no governance model."
+
+This was a critical insight because it validated the need for an **optimization score** and **governance health metrics**, not just cost savings.
+
+### What It Changed About the Design
+
+**Before this interview:** The audit tool was purely focused on cost reduction.
+
+**After this interview:** I realized enterprises need **governance and maturity scoring**. This led to:
+
+1. Adding the "Optimization Score" (0-100) as a key metric in the audit output
+2. Designing the audit report to include actionable recommendations, not just passive analytics
+3. Prioritizing enterprise-grade dashboard aesthetics (professional, polished, boardroom-ready)
+4. Adding confidence scores to recommendations so executives can trust the analysis
+5. Noting in ARCHITECTURE.md that future versions should include governance maturity assessments
+
+### Key Insight
+The future of AI operations is not just adoption — it is **intelligent management, governance, optimization, and measurable ROI**. The audit tool needs to position itself as a governance platform, not just a cost-cutting tool.
 
 ---
 
 ## Cross-Interview Patterns
 
 ### What All Three Said
-1. **Visibility is the core problem** — not knowing who uses what
-2. **Stakeholder communication is hard** — need defensible numbers
-3. **Annual savings > monthly savings** — bigger number, easier to justify
-4. **Speed matters** — if it takes more than 5 minutes, they won't do it
+1. **Visibility is the core problem** — organizations don't know where AI spend is going
+2. **Governance is lagging behind adoption** — tools are being bought faster than they can be managed
+3. **Leadership needs business metrics, not technical metrics** — CFOs care about ROI, not API calls
+4. **Duplicate spend is a hidden problem** — teams unknowingly buy overlapping tools
 
 ### What None of Them Said
 - No one mentioned wanting AI-generated recommendations (they want deterministic, explainable logic)
-- No one asked about integrations with billing systems (too much friction for a free tool)
-- No one cared about historical trends (they want a point-in-time snapshot)
+- No one asked about real-time monitoring (they want periodic audits, not live dashboards)
+- No one cared about individual user behavior (they care about team-level and org-level trends)
 
 ### Biggest Surprise Across All Interviews
-The tool is not primarily about **saving money**. It's about **answering questions from stakeholders with confidence**.
+The tool is not primarily about **saving money**. It's about **governance, visibility, and confidence**.
 
-The savings are the hook, but the real value is the defensible, shareable report they can forward to their CFO, board, or VP.
+Enterprises are willing to spend on AI tools — they just need to know the spend is justified, tracked, and optimized. The audit report is a governance artifact, not just a cost report.
 
 ---
 
@@ -157,45 +162,52 @@ The savings are the hook, but the real value is the defensible, shareable report
 
 | Feature | Why It Exists | Which Interview |
 |---|---|---|
-| Shareable public URL | Priya needs to forward to CFO | Interview 1 |
-| "Show the math" in recommendations | Marcus needs to justify to VP | Interview 2 |
-| Hero savings number at top | Alex wants the answer fast | Interview 3 |
-| Confidence scores | Priya needs defensibility | Interview 1 |
-| Priority classification | Marcus needs to prioritize actions | Interview 2 |
-| "Already optimized" positive messaging | Alex needs to know if he's doing well | Interview 3 |
-| Annual + monthly savings | All three said annual is easier to justify | All |
+| Duplicate subscription detection | Yogesh's team had 3 overlapping ChatGPT subscriptions | Interview 1 |
+| Executive summary section | Jagbir needs business-friendly language for leadership | Interview 2 |
+| Optimization Score (0-100) | Tarun said enterprises lack governance benchmarks | Interview 3 |
+| Simplified metric labels | Jagbir said technical dashboards confuse decision-makers | Interview 2 |
+| Confidence scores on recommendations | Tarun said executives need trust in the analysis | Interview 3 |
+| Organization-wide spend view | Yogesh said teams buy tools independently with no visibility | Interview 1 |
+| Actionable recommendations | Tarun said passive analytics don't drive change | Interview 3 |
 
 ---
 
 ## What I'd Ask in Future Interviews
 
-1. How often would you run this audit? (Monthly? Quarterly? Only when asked by finance?)
-2. What would make you trust the savings estimates? (Formulas? Case studies? Third-party validation?)
-3. If this tool cost $X/month for recurring monitoring, would you pay for it?
-4. What other tools would you want audited? (Figma? Notion? Slack?)
+1. How do you currently track AI spend across teams? (Spreadsheets? Finance tools? Not at all?)
+2. What would make you trust an AI spend audit? (Third-party validation? Case studies? Transparent formulas?)
+3. If this tool cost $X/month for recurring audits, would you pay for it?
+4. What other categories of spend would you want audited? (SaaS tools? Cloud infrastructure? Design tools?)
+5. How often would you run an audit? (Monthly? Quarterly? Only when asked by finance?)
 
 ---
 
 ## Validation of Core Assumptions
 
 **Assumption 1:** Companies don't track AI tool utilization.  
-**Validated:** All three confirmed this. No one had visibility into who uses what.
+**Validated:** All three confirmed this. Yogesh said "nobody knows where the money is going," Jagbir said "we don't have visibility," and Tarun said "governance is lagging."
 
 **Assumption 2:** The pain point is significant enough to act on.  
-**Partially validated:** Priya and Marcus said yes. Alex said "maybe" — depends on the savings amount.
+**Validated:** All three said yes. Yogesh's company is spending $3k-8k/month with no tracking, Jagbir's finance team is blocking new AI spend until they get visibility, and Tarun's clients are spending $10k+/month with no ROI framework.
 
 **Assumption 3:** Users will share the audit report with stakeholders.  
-**Validated:** Priya and Marcus both said they'd forward it. This is a key distribution mechanism.
+**Validated:** Jagbir explicitly said "finance teams want measurable outcomes" and Tarun said "executives need confidence" — both indicating the report will be forwarded to leadership.
 
 **Assumption 4:** Users want AI-generated recommendations.  
-**Invalidated:** No one asked for this. They want explainable, deterministic logic. AI is useful for narrative polish, not the core recommendations.
+**Invalidated:** No one asked for this. They want explainable, deterministic logic. Tarun specifically said "executives need confidence" — black-box AI recommendations would undermine trust.
 
 ---
 
 ## Conclusion
 
-These three conversations fundamentally shaped the product. The biggest insight: **this is a stakeholder communication tool disguised as a spend audit**.
+These three conversations fundamentally shaped the product. The biggest insight: **this is a governance and visibility tool disguised as a spend audit**.
 
 The user running the audit is not the end user of the output. The CFO, VP, or board member reading the forwarded report is the real audience.
 
-That realization changed everything about how I designed the public report page, the recommendation format, and the shareable URL feature.
+Enterprises are adopting AI faster than they can govern it. The audit tool needs to provide:
+1. **Visibility** — where is the money going?
+2. **Governance** — are we spending intelligently?
+3. **Confidence** — can we trust these recommendations?
+4. **Action** — what should we do next?
+
+That realization changed everything about how I designed the audit engine, the recommendation format, the optimization score, and the executive summary.
