@@ -12,6 +12,7 @@ const bodySchema = z.object({
   title: z.string().min(1).max(100),
   organizationId: z.string().uuid().optional(),
   workspaces: z.array(z.any()).min(1),
+  email: z.string().email().optional(),
 });
 
 export async function POST(req: NextRequest) {
@@ -44,7 +45,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: parsed.error.flatten() }, { status: 422 });
   }
 
-  const { title, organizationId, workspaces } = parsed.data;
+  const { title, organizationId, workspaces, email } = parsed.data;
 
   // Use a default org ID if not provided
   const orgId = organizationId || "00000000-0000-0000-0000-000000000000";
@@ -72,10 +73,11 @@ export async function POST(req: NextRequest) {
     const shareUrl = `${req.nextUrl.origin}/results/${shareId}`;
 
     // Fire audit email non-blocking — never delays the response
-    if (user?.email) {
+    const recipientEmail = user?.email || email;
+    if (recipientEmail) {
       void sendAuditEmail({
-        to: user.email,
-        companyName: user.user_metadata?.full_name ?? user.email,
+        to: recipientEmail,
+        companyName: user?.user_metadata?.full_name ?? recipientEmail,
         auditTitle: title,
         monthlySavings: result.totalMonthlySavings,
         annualSavings: result.totalAnnualSavings,

@@ -39,6 +39,7 @@ export default function AuditFormPage() {
   ]);
   const [teamSize, setTeamSize] = useLocalStorage("audit-team-size", "");
   const [useCase, setUseCase] = useLocalStorage("audit-use-case", "");
+  const [email, setEmail] = useLocalStorage("audit-email", "");
 
   const addTool = () => {
     setTools([...tools, { provider: "", plan: "", monthlySpend: "", seats: "" }]);
@@ -90,6 +91,7 @@ export default function AuditFormPage() {
         body: JSON.stringify({
           title: `AI Audit - ${new Date().toLocaleDateString()}`,
           workspaces,
+          email: email || undefined,
         }),
       });
 
@@ -274,6 +276,20 @@ export default function AuditFormPage() {
             >
               + Add Another Tool
             </Button>
+          </div>
+
+          {/* Email */}
+          <div className="mb-8">
+            <Label className="text-sm font-medium text-gray-700 mb-2">
+              Email (optional - to receive results)
+            </Label>
+            <Input
+              type="email"
+              placeholder="your@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              className="h-11"
+            />
           </div>
 
           {/* Team Info */}

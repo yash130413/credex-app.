@@ -10,7 +10,11 @@ export const analytics = {
     totalSavings: number;
     recommendationCount: number;
   }) => {
-    track('audit_completed', data);
+    track('audit_completed', {
+      providers: data.providers.join(','),
+      totalSavings: data.totalSavings,
+      recommendationCount: data.recommendationCount,
+    });
   },
   
   leadCaptured: (source: string) => {
