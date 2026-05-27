@@ -1,22 +1,22 @@
 // Simple in-memory rate limiter (for production, use Redis or Upstash)
-const rateLimit = new Map<string, { count: number; resetAt: number }>();
+const rateLimitStore = new Map<string, { count: number; resetAt: number }>();
 
 const WINDOW_MS = 60 * 1000; // 1 minute
 const MAX_REQUESTS = 10; // 10 requests per minute
 
 export function checkRateLimit(identifier: string): { success: boolean; remaining: number } {
   const now = Date.now();
-  const record = rateLimit.get(identifier);
+  const record = rateLimitStore.get(identifier);
 
   // Clean up expired entries
   if (record && now > record.resetAt) {
-    rateLimit.delete(identifier);
+    rateLimitStore.delete(identifier);
   }
 
-  const current = rateLimit.get(identifier);
+  const current = rateLimitStore.get(identifier);
 
   if (!current) {
-    rateLimit.set(identifier, { count: 1, resetAt: now + WINDOW_MS });
+    rateLimitStore.set(identifier, { count: 1, resetAt: now + WINDOW_MS });
     return { success: true, remaining: MAX_REQUESTS - 1 };
   }
 
