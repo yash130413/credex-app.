@@ -5,31 +5,28 @@ import { ChevronDown, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { AuditRecommendation, AuditPriority, AuditProvider } from "@/types/audit-engine";
-import styles from "@/components/components.module.css";
 
-// ── Visual config ─────────────────────────────────────────────────────────────
 const PRIORITY_STYLES: Record<AuditPriority, string> = {
-  Critical: "bg-red-500/10 text-red-400 border-red-500/20",
-  High: "bg-orange-500/10 text-orange-400 border-orange-500/20",
-  Medium: "bg-yellow-500/10 text-yellow-400 border-yellow-500/20",
-  Low: "bg-muted text-muted-foreground border-border",
+  Critical: "bg-red-50 text-red-600 border-red-200",
+  High:     "bg-orange-50 text-orange-600 border-orange-200",
+  Medium:   "bg-yellow-50 text-yellow-600 border-yellow-200",
+  Low:      "bg-gray-50 text-gray-500 border-gray-200",
 };
 
 const PROVIDER_STYLES: Record<AuditProvider, string> = {
-  ChatGPT: "bg-emerald-500/10 text-emerald-400 border-emerald-500/20",
-  Claude: "bg-amber-500/10 text-amber-400 border-amber-500/20",
-  Cursor: "bg-violet-500/10 text-violet-400 border-violet-500/20",
-  Copilot: "bg-sky-500/10 text-sky-400 border-sky-500/20",
-  Gemini: "bg-blue-500/10 text-blue-400 border-blue-500/20",
+  ChatGPT: "bg-emerald-50 text-emerald-700 border-emerald-200",
+  Claude:  "bg-amber-50 text-amber-700 border-amber-200",
+  Cursor:  "bg-violet-50 text-violet-700 border-violet-200",
+  Copilot: "bg-sky-50 text-sky-700 border-sky-200",
+  Gemini:  "bg-blue-50 text-blue-700 border-blue-200",
 };
 
-const CONFIDENCE_COLOR = (score: number) => {
-  if (score >= 85) return "bg-emerald-500";
+const CONFIDENCE_BAR = (score: number) => {
+  if (score >= 85) return "bg-green-500";
   if (score >= 70) return "bg-yellow-500";
   return "bg-orange-500";
 };
 
-// ── Row component ─────────────────────────────────────────────────────────────
 function RecommendationRow({ rec }: { rec: AuditRecommendation }) {
   const [expanded, setExpanded] = useState(false);
 
@@ -37,121 +34,95 @@ function RecommendationRow({ rec }: { rec: AuditRecommendation }) {
     <>
       <tr
         className={cn(
-          "border-b border-white/[0.04] transition-colors cursor-pointer",
-          expanded ? "bg-white/[0.03]" : "hover:bg-white/[0.02]"
+          "border-b border-gray-50 transition-colors cursor-pointer",
+          expanded ? "bg-gray-50/80" : "hover:bg-gray-50/60"
         )}
         onClick={() => setExpanded((v) => !v)}
       >
-        {/* Expand toggle */}
         <td className="pl-4 pr-2 py-3.5 w-8">
-          {expanded ? (
-            <ChevronDown className="w-3.5 h-3.5 text-muted-foreground" />
-          ) : (
-            <ChevronRight className="w-3.5 h-3.5 text-muted-foreground" />
-          )}
+          {expanded
+            ? <ChevronDown className="w-3.5 h-3.5 text-gray-400" />
+            : <ChevronRight className="w-3.5 h-3.5 text-gray-300" />
+          }
         </td>
 
-        {/* Priority */}
         <td className="px-3 py-3.5 whitespace-nowrap">
-          <Badge
-            variant="outline"
-            className={cn("text-[11px] font-semibold px-2 py-0.5", PRIORITY_STYLES[rec.priority])}
-          >
+          <Badge variant="outline" className={cn("text-[11px] font-semibold px-2 py-0.5 rounded-full", PRIORITY_STYLES[rec.priority])}>
             {rec.priority}
           </Badge>
         </td>
 
-        {/* Provider */}
         <td className="px-3 py-3.5 whitespace-nowrap">
-          <Badge
-            variant="outline"
-            className={cn("text-[11px] font-medium px-2 py-0.5", PROVIDER_STYLES[rec.provider])}
-          >
+          <Badge variant="outline" className={cn("text-[11px] font-semibold px-2 py-0.5 rounded-full", PROVIDER_STYLES[rec.provider])}>
             {rec.provider}
           </Badge>
         </td>
 
-        {/* Title */}
         <td className="px-3 py-3.5 min-w-[220px]">
-          <p className="text-sm font-medium leading-tight">{rec.title}</p>
-          <p className="text-xs text-muted-foreground mt-0.5 line-clamp-1">{rec.recommendation}</p>
+          <p className="text-sm font-semibold text-gray-900 leading-tight">{rec.title}</p>
+          <p className="text-xs text-gray-400 mt-0.5 line-clamp-1">{rec.recommendation}</p>
         </td>
 
-        {/* Confidence */}
         <td className="px-3 py-3.5 w-32 hidden md:table-cell">
           <div className="flex items-center gap-2">
-            <div className="flex-1 h-1.5 rounded-full bg-white/[0.06] overflow-hidden">
+            <div className="flex-1 h-1.5 rounded-full bg-gray-100 overflow-hidden">
               <div
-                className={cn("h-full rounded-full transition-all", CONFIDENCE_COLOR(rec.confidenceScore), styles.confidenceBar)}
-                style={{ "--bar-width": `${rec.confidenceScore}%` } as React.CSSProperties}
+                className={cn("h-full rounded-full transition-all", CONFIDENCE_BAR(rec.confidenceScore))}
+                style={{ width: `${rec.confidenceScore}%` }}
               />
             </div>
-            <span className="text-xs text-muted-foreground w-7 text-right tabular-nums">
-              {rec.confidenceScore}
-            </span>
+            <span className="text-xs text-gray-400 w-7 text-right tabular-nums">{rec.confidenceScore}</span>
           </div>
         </td>
 
-        {/* Monthly savings */}
         <td className="px-3 py-3.5 text-right whitespace-nowrap">
-          <span className="text-sm font-semibold text-emerald-400">
-            {formatCurrency(rec.monthlySavings)}
-          </span>
-          <span className="text-xs text-muted-foreground block">/ mo</span>
+          <span className="text-sm font-bold text-green-600">{formatCurrency(rec.monthlySavings)}</span>
+          <span className="text-xs text-gray-400 block">/ mo</span>
         </td>
 
-        {/* Annual savings */}
         <td className="px-3 py-3.5 text-right whitespace-nowrap hidden lg:table-cell">
-          <span className="text-sm font-semibold">{formatCurrency(rec.annualSavings)}</span>
-          <span className="text-xs text-muted-foreground block">/ yr</span>
+          <span className="text-sm font-semibold text-gray-900">{formatCurrency(rec.annualSavings)}</span>
+          <span className="text-xs text-gray-400 block">/ yr</span>
         </td>
 
-        {/* Affected users */}
         <td className="px-3 py-3.5 text-right whitespace-nowrap hidden xl:table-cell">
-          <span className="text-sm tabular-nums">
+          <span className="text-sm tabular-nums text-gray-700">
             {rec.affectedUsers != null ? rec.affectedUsers : "—"}
           </span>
-          {rec.affectedUsers != null && (
-            <span className="text-xs text-muted-foreground block">users</span>
-          )}
+          {rec.affectedUsers != null && <span className="text-xs text-gray-400 block">users</span>}
         </td>
       </tr>
 
-      {/* Expanded detail row */}
       {expanded && (
-        <tr className="bg-white/[0.02] border-b border-white/[0.04]">
+        <tr className="bg-gray-50/60 border-b border-gray-100">
           <td colSpan={8} className="px-10 py-4">
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
               {rec.currentCost != null && (
                 <div className="flex flex-col gap-1">
-                  <span className="text-xs text-muted-foreground uppercase tracking-wider">Current cost</span>
-                  <span className="text-sm font-semibold">{formatCurrency(rec.currentCost)}/mo</span>
+                  <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Current cost</span>
+                  <span className="text-sm font-semibold text-gray-900">{formatCurrency(rec.currentCost)}/mo</span>
                 </div>
               )}
               {rec.optimizedCost != null && (
                 <div className="flex flex-col gap-1">
-                  <span className="text-xs text-muted-foreground uppercase tracking-wider">Optimized cost</span>
-                  <span className="text-sm font-semibold text-emerald-400">
-                    {formatCurrency(rec.optimizedCost)}/mo
-                  </span>
+                  <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Optimized cost</span>
+                  <span className="text-sm font-semibold text-green-600">{formatCurrency(rec.optimizedCost)}/mo</span>
                 </div>
               )}
               {rec.affectedUsers != null && (
                 <div className="flex flex-col gap-1">
-                  <span className="text-xs text-muted-foreground uppercase tracking-wider">Affected users</span>
-                  <span className="text-sm font-semibold">{rec.affectedUsers}</span>
+                  <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Affected users</span>
+                  <span className="text-sm font-semibold text-gray-900">{rec.affectedUsers}</span>
                 </div>
               )}
               <div className="flex flex-col gap-1">
-                <span className="text-xs text-muted-foreground uppercase tracking-wider">Rule ID</span>
-                <code className="text-xs font-mono text-muted-foreground bg-white/[0.04] px-2 py-1 rounded-md w-fit">
-                  {rec.ruleId}
-                </code>
+                <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Rule ID</span>
+                <code className="text-xs font-mono text-gray-400 bg-gray-100 px-2 py-1 rounded-lg w-fit">{rec.ruleId}</code>
               </div>
             </div>
             <div className="flex flex-col gap-1">
-              <span className="text-xs text-muted-foreground uppercase tracking-wider">Reasoning</span>
-              <p className="text-sm text-muted-foreground leading-relaxed max-w-3xl">{rec.reason}</p>
+              <span className="text-xs text-gray-400 uppercase tracking-wider font-medium">Reasoning</span>
+              <p className="text-sm text-gray-500 leading-relaxed max-w-3xl">{rec.reason}</p>
             </div>
           </td>
         </tr>
@@ -160,35 +131,28 @@ function RecommendationRow({ rec }: { rec: AuditRecommendation }) {
   );
 }
 
-// ── Table header ──────────────────────────────────────────────────────────────
 function Th({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
-    <th
-      className={cn(
-        "px-3 py-3 text-left text-[11px] font-semibold text-muted-foreground uppercase tracking-wider whitespace-nowrap",
-        className
-      )}
-    >
+    <th className={cn("px-3 py-3 text-left text-[11px] font-bold text-gray-400 uppercase tracking-wider whitespace-nowrap", className)}>
       {children}
     </th>
   );
 }
 
-// ── Main table ────────────────────────────────────────────────────────────────
 export function RecommendationsTable({ recommendations }: { recommendations: AuditRecommendation[] }) {
   if (recommendations.length === 0) {
     return (
-      <div className="rounded-xl border border-white/[0.06] bg-card p-12 text-center text-sm text-muted-foreground">
+      <div className="rounded-2xl border border-gray-100 bg-white p-12 text-center text-sm text-gray-400 shadow-sm">
         No recommendations generated. All utilization metrics are within benchmark thresholds.
       </div>
     );
   }
 
   return (
-    <div className="rounded-xl border border-white/[0.06] bg-card overflow-hidden">
+    <div className="rounded-2xl border border-gray-100 bg-white overflow-hidden shadow-sm shadow-black/[0.04]">
       <div className="overflow-x-auto">
         <table className="w-full text-sm">
-          <thead className="border-b border-white/[0.06] bg-white/[0.02]">
+          <thead className="border-b border-gray-100 bg-gray-50/60">
             <tr>
               <th className="w-8 pl-4" />
               <Th>Priority</Th>

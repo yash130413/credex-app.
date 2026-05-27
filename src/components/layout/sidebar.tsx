@@ -51,13 +51,13 @@ function SidebarContent({ email, fullName, onNav }: SidebarProps & { onNav?: () 
         initial={{ opacity: 0, x: -8 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.35, ease: EASE }}
-        className="px-4 py-5 border-b border-white/[0.06]"
+        className="px-4 py-5 border-b border-gray-100"
       >
         <Link href="/" className="flex items-center gap-2">
-          <span className="w-7 h-7 rounded-lg bg-primary flex items-center justify-center">
-            <TrendingDown className="w-3.5 h-3.5 text-background" />
+          <span className="w-7 h-7 rounded-xl bg-green-600 flex items-center justify-center shadow-sm">
+            <TrendingDown className="w-3.5 h-3.5 text-white" />
           </span>
-          <span className="font-semibold text-[15px] tracking-tight">Credex</span>
+          <span className="font-bold text-[15px] tracking-tight text-gray-900">Credex</span>
         </Link>
       </motion.div>
 
@@ -73,24 +73,18 @@ function SidebarContent({ email, fullName, onNav }: SidebarProps & { onNav?: () 
                   aria-current={active ? "page" : undefined}
                   onClick={onNav}
                   className={cn(
-                    "flex items-center gap-3 px-3 py-2 rounded-lg text-sm font-medium transition-colors duration-150",
+                    "flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-medium transition-all duration-150",
                     active
-                      ? "bg-primary/15 text-primary"
-                      : "text-muted-foreground hover:bg-white/[0.05] hover:text-foreground"
+                      ? "bg-green-50 text-green-700 shadow-sm"
+                      : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
                   )}
                 >
-                  <motion.span
-                    whileHover={{ scale: 1.15, rotate: active ? 0 : 4 }}
-                    transition={{ duration: 0.18, ease: EASE }}
-                    className="shrink-0"
-                  >
-                    <Icon className="w-4 h-4" aria-hidden="true" />
-                  </motion.span>
+                  <Icon className="w-4 h-4 shrink-0" aria-hidden="true" />
                   {label}
                   {active && (
                     <motion.span
                       layoutId="nav-active-dot"
-                      className="ml-auto w-1.5 h-1.5 rounded-full bg-primary"
+                      className="ml-auto w-1.5 h-1.5 rounded-full bg-green-600"
                       transition={{ duration: 0.25, ease: EASE }}
                     />
                   )}
@@ -106,27 +100,24 @@ function SidebarContent({ email, fullName, onNav }: SidebarProps & { onNav?: () 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.35, ease: EASE }}
-        className="px-3 py-4 border-t border-white/[0.06] flex items-center gap-3"
+        className="px-3 py-4 border-t border-gray-100 flex items-center gap-3"
       >
         <Avatar className="w-8 h-8">
-          <AvatarFallback className="text-xs bg-primary/20 text-primary font-semibold">
+          <AvatarFallback className="text-xs bg-green-100 text-green-700 font-bold">
             {initials(fullName, email)}
           </AvatarFallback>
         </Avatar>
         <div className="flex-1 min-w-0">
-          {fullName && <p className="text-xs font-medium truncate">{fullName}</p>}
-          <p className="text-[11px] text-muted-foreground truncate">{email}</p>
+          {fullName && <p className="text-xs font-semibold text-gray-900 truncate">{fullName}</p>}
+          <p className="text-[11px] text-gray-400 truncate">{email}</p>
         </div>
-        <motion.button
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.92 }}
-          transition={{ duration: 0.15 }}
+        <button
           onClick={handleSignOut}
           aria-label="Sign out"
-          className="p-1.5 rounded-md text-muted-foreground hover:text-foreground hover:bg-white/[0.04] transition-colors"
+          className="p-1.5 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
         >
           <LogOut className="w-3.5 h-3.5" aria-hidden="true" />
-        </motion.button>
+        </button>
       </motion.div>
     </>
   );
@@ -139,55 +130,39 @@ export function Sidebar({ email, fullName }: SidebarProps) {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden md:flex w-56 border-r border-white/[0.06] flex-col bg-background shrink-0">
+      <aside className="hidden md:flex w-56 border-r border-gray-100 flex-col bg-white shrink-0 shadow-sm">
         <SidebarContent email={email} fullName={fullName} />
       </aside>
 
       {/* Mobile: top bar + drawer */}
       <div className="md:hidden">
-        {/* Top bar */}
-        <div className="fixed top-0 inset-x-0 z-40 h-14 flex items-center justify-between px-4 border-b border-white/[0.06] bg-background/95 backdrop-blur-xl">
+        <div className="fixed top-0 inset-x-0 z-40 h-14 flex items-center justify-between px-4 border-b border-gray-100 bg-white/95 backdrop-blur-xl shadow-sm">
           <Link href="/" className="flex items-center gap-2">
-            <span className="w-6 h-6 rounded-md bg-primary flex items-center justify-center">
-              <TrendingDown className="w-3 h-3 text-background" />
+            <span className="w-6 h-6 rounded-lg bg-green-600 flex items-center justify-center">
+              <TrendingDown className="w-3 h-3 text-white" />
             </span>
-            <span className="font-semibold text-sm tracking-tight">Credex</span>
+            <span className="font-bold text-sm tracking-tight text-gray-900">Credex</span>
           </Link>
-          <motion.button
-            whileTap={{ scale: 0.9 }}
-            transition={{ duration: 0.12 }}
+          <button
             onClick={() => setMobileOpen((v) => !v)}
             aria-label="Toggle navigation menu"
             aria-expanded={mobileOpen}
-            className="p-2 rounded-md text-muted-foreground hover:text-foreground hover:bg-white/[0.04] transition-colors"
+            className="p-2 rounded-lg text-gray-400 hover:text-gray-700 hover:bg-gray-100 transition-colors"
           >
             <AnimatePresence mode="wait" initial={false}>
               {mobileOpen ? (
-                <motion.span
-                  key="close"
-                  initial={{ rotate: -45, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: 45, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
+                <motion.span key="close" initial={{ rotate: -45, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: 45, opacity: 0 }} transition={{ duration: 0.15 }}>
                   <X className="w-5 h-5" />
                 </motion.span>
               ) : (
-                <motion.span
-                  key="menu"
-                  initial={{ rotate: 45, opacity: 0 }}
-                  animate={{ rotate: 0, opacity: 1 }}
-                  exit={{ rotate: -45, opacity: 0 }}
-                  transition={{ duration: 0.15 }}
-                >
+                <motion.span key="menu" initial={{ rotate: 45, opacity: 0 }} animate={{ rotate: 0, opacity: 1 }} exit={{ rotate: -45, opacity: 0 }} transition={{ duration: 0.15 }}>
                   <Menu className="w-5 h-5" />
                 </motion.span>
               )}
             </AnimatePresence>
-          </motion.button>
+          </button>
         </div>
 
-        {/* Overlay + drawer via AnimatePresence */}
         <AnimatePresence>
           {mobileOpen && (
             <>
@@ -197,7 +172,7 @@ export function Sidebar({ email, fullName }: SidebarProps) {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.2 }}
-                className="fixed inset-0 z-30 bg-black/50"
+                className="fixed inset-0 z-30 bg-black/20"
                 onClick={() => setMobileOpen(false)}
                 aria-hidden="true"
               />
@@ -207,14 +182,10 @@ export function Sidebar({ email, fullName }: SidebarProps) {
                 animate={{ x: 0, opacity: 1 }}
                 exit={{ x: reduce ? 0 : "-100%", opacity: reduce ? 0 : 1 }}
                 transition={{ duration: 0.28, ease: EASE }}
-                className="fixed top-0 left-0 z-40 h-full w-64 bg-background border-r border-white/[0.06] flex flex-col"
+                className="fixed top-0 left-0 z-40 h-full w-64 bg-white border-r border-gray-100 flex flex-col shadow-xl"
                 aria-label="Mobile navigation"
               >
-                <SidebarContent
-                  email={email}
-                  fullName={fullName}
-                  onNav={() => setMobileOpen(false)}
-                />
+                <SidebarContent email={email} fullName={fullName} onNav={() => setMobileOpen(false)} />
               </motion.aside>
             </>
           )}

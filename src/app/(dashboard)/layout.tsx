@@ -12,10 +12,9 @@ export default async function DashboardLayout({ children }: { children: React.Re
   const fullName = (user.user_metadata?.full_name as string | undefined) ?? "";
 
   return (
-    <div className="flex h-screen overflow-hidden">
+    <div className="flex h-screen overflow-hidden bg-gray-50">
       <Sidebar email={email} fullName={fullName} />
       <main className="flex-1 overflow-y-auto">
-        {/* Offset for mobile top bar */}
         <div className="md:hidden h-14 shrink-0" />
         <div className="p-6 max-w-7xl mx-auto">{children}</div>
       </main>

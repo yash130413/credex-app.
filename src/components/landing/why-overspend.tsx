@@ -29,16 +29,16 @@ const reasons = [
 
 export function WhyOverspend() {
   return (
-    <section className="py-32 px-5 border-t border-white/[0.06]">
+    <section className="py-32 px-5 border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
         <FadeIn className="mb-16">
-          <p className="text-xs text-indigo-400 uppercase tracking-widest font-medium mb-4">
+          <p className="text-xs text-green-600 uppercase tracking-widest font-semibold mb-4">
             The problem
           </p>
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance max-w-xl">
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-balance max-w-xl text-gray-900">
             Why teams overspend on AI tooling
           </h2>
-          <p className="mt-4 text-muted-foreground text-base max-w-lg leading-relaxed">
+          <p className="mt-4 text-gray-500 text-lg max-w-lg leading-relaxed">
             AI software costs are growing faster than visibility into how those tools are
             actually being used.
           </p>
@@ -47,14 +47,14 @@ export function WhyOverspend() {
         <StaggerChildren className="grid sm:grid-cols-2 gap-5">
           {reasons.map((r) => (
             <StaggerItem key={r.stat}>
-              <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-7 flex flex-col gap-4 hover:bg-white/[0.03] transition-colors">
+              <div className="rounded-2xl border border-gray-100 bg-white p-7 flex flex-col gap-4 card-shadow hover:card-shadow-hover transition-all duration-200 hover:-translate-y-0.5">
                 <div className="flex items-baseline gap-3">
-                  <span className="text-4xl font-semibold tracking-tight text-white tabular-nums">
+                  <span className="text-5xl font-bold tracking-tight text-green-600 tabular-nums">
                     {r.stat}
                   </span>
-                  <span className="text-sm text-muted-foreground font-medium">{r.label}</span>
+                  <span className="text-sm text-gray-500 font-medium">{r.label}</span>
                 </div>
-                <p className="text-sm text-muted-foreground leading-relaxed">{r.description}</p>
+                <p className="text-sm text-gray-500 leading-relaxed">{r.description}</p>
               </div>
             </StaggerItem>
           ))}

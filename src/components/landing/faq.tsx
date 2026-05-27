@@ -43,17 +43,17 @@ function FAQItem({ q, a }: { q: string; a: string }) {
   return (
     <button
       onClick={() => setOpen((v) => !v)}
-      className="w-full text-left border border-white/[0.06] rounded-xl px-5 py-4 bg-card/30 hover:bg-card/60 transition-colors"
+      className="w-full text-left border border-gray-100 rounded-2xl px-5 py-4 bg-white hover:bg-gray-50 transition-colors shadow-sm"
     >
       <div className="flex items-center justify-between gap-4">
-        <span className="text-sm font-medium">{q}</span>
+        <span className="text-sm font-semibold text-gray-900">{q}</span>
         <span
           className={cn(
-            "w-5 h-5 rounded-full border border-white/10 flex items-center justify-center shrink-0 transition-transform duration-200",
-            open && "rotate-45"
+            "w-6 h-6 rounded-full border border-gray-200 bg-gray-50 flex items-center justify-center shrink-0 transition-transform duration-200",
+            open && "rotate-45 bg-green-50 border-green-200"
           )}
         >
-          <Plus className="w-3 h-3 text-muted-foreground" />
+          <Plus className="w-3 h-3 text-gray-400" />
         </span>
       </div>
       <AnimatePresence initial={false}>
@@ -65,7 +65,7 @@ function FAQItem({ q, a }: { q: string; a: string }) {
             transition={{ duration: 0.25, ease: [0.21, 0.47, 0.32, 0.98] }}
             className="overflow-hidden"
           >
-            <p className="pt-3 text-sm text-muted-foreground leading-relaxed text-left">{a}</p>
+            <p className="pt-3 text-sm text-gray-500 leading-relaxed text-left">{a}</p>
           </motion.div>
         )}
       </AnimatePresence>
@@ -75,11 +75,11 @@ function FAQItem({ q, a }: { q: string; a: string }) {
 
 export function FAQ() {
   return (
-    <section id="faq" className="py-28 px-5 border-t border-white/[0.06]">
+    <section id="faq" className="py-28 px-5 border-t border-gray-100">
       <div className="max-w-3xl mx-auto">
         <FadeIn className="text-center mb-12">
-          <p className="text-xs text-primary uppercase tracking-widest font-medium mb-3">FAQ</p>
-          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-balance">
+          <p className="text-xs text-green-600 uppercase tracking-widest font-semibold mb-3">FAQ</p>
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-balance text-gray-900">
             Common questions
           </h2>
         </FadeIn>

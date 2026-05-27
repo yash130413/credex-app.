@@ -42,16 +42,16 @@ const testimonials = [
 
 export function Testimonials() {
   return (
-    <section id="testimonials" className="py-32 px-5 border-t border-white/[0.06]">
+    <section id="testimonials" className="py-32 px-5 border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
         <FadeIn className="mb-16">
-          <p className="text-xs text-indigo-400 uppercase tracking-widest font-medium mb-4">
+          <p className="text-xs text-green-600 uppercase tracking-widest font-semibold mb-4">
             Testimonials
           </p>
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance max-w-xl">
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-balance max-w-xl text-gray-900">
             Trusted by engineering teams managing AI spend
           </h2>
-          <p className="mt-3 text-xs text-muted-foreground/60">
+          <p className="mt-3 text-xs text-gray-400">
             Illustrative testimonials representing common customer outcomes.
           </p>
         </FadeIn>
@@ -59,19 +59,19 @@ export function Testimonials() {
         <StaggerChildren className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {testimonials.map((t) => (
             <StaggerItem key={t.name}>
-              <div className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 flex flex-col gap-5 h-full hover:bg-white/[0.03] transition-colors">
-                <p className="text-sm text-muted-foreground leading-relaxed flex-1">
+              <div className="rounded-2xl border border-gray-100 bg-white p-6 flex flex-col gap-5 h-full card-shadow hover:card-shadow-hover transition-all duration-200 hover:-translate-y-0.5">
+                <p className="text-sm text-gray-500 leading-relaxed flex-1">
                   &ldquo;{t.quote}&rdquo;
                 </p>
-                <div className="flex items-center gap-3 pt-2 border-t border-white/[0.05]">
+                <div className="flex items-center gap-3 pt-2 border-t border-gray-100">
                   <Avatar className="w-8 h-8">
-                    <AvatarFallback className="text-[10px] font-semibold bg-indigo-500/20 text-indigo-300">
+                    <AvatarFallback className="text-[10px] font-bold bg-green-100 text-green-700">
                       {t.initials}
                     </AvatarFallback>
                   </Avatar>
                   <div>
-                    <p className="text-xs font-semibold leading-tight">{t.name}</p>
-                    <p className="text-[11px] text-muted-foreground">{t.title}</p>
+                    <p className="text-xs font-semibold text-gray-900 leading-tight">{t.name}</p>
+                    <p className="text-[11px] text-gray-400">{t.title}</p>
                   </div>
                 </div>
               </div>

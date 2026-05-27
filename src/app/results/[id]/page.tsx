@@ -9,7 +9,6 @@ import { ResultsLeadCapture } from "@/components/results/results-lead-capture";
 import { AlreadyOptimizedState } from "@/components/results/already-optimized-state";
 import { formatCurrency, cn } from "@/lib/utils";
 import type { PublicAuditSafe } from "@/types/database";
-import styles from "@/components/components.module.css";
 
 // ── Metadata ──────────────────────────────────────────────────────────────────
 
@@ -90,103 +89,70 @@ export default async function ResultsPage({ params }: Props) {
   });
 
   return (
-    <div className="min-h-screen bg-background text-foreground">
-      {/* Subtle grid background */}
-      <div className="fixed inset-0 hero-grid opacity-40 pointer-events-none" />
+    <div className="min-h-screen bg-gray-50 text-gray-900">
+      {/* Grid background */}
+      <div className="fixed inset-0 hero-grid pointer-events-none" />
 
-      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14 flex flex-col gap-10">
+      <div className="relative max-w-5xl mx-auto px-4 sm:px-6 py-10 sm:py-14 flex flex-col gap-8">
 
-        {/* ── Breadcrumb ──────────────────────────────────────────────────── */}
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <Link href="/" className="hover:text-foreground transition-colors">Credex</Link>
-          <span>/</span>
-          <span>Audit Report</span>
-        </div>
-
-        {/* ── Header ──────────────────────────────────────────────────────── */}
-        <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4">
-          <div className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1.5 text-xs font-medium px-2.5 py-1 rounded-full border border-emerald-500/20 bg-emerald-500/[0.07] text-emerald-400">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" aria-hidden="true" />
-                Public Report
-              </span>
-            </div>
-            <h1 className="text-2xl sm:text-3xl font-bold tracking-tight">{audit.title}</h1>
-            <p className="text-sm text-muted-foreground">
-              Generated{" "}
-              {new Date(audit.created_at).toLocaleDateString("en-US", {
-                month: "long", day: "numeric", year: "numeric",
-              })}
-              {" · "}
-              {audit.recommendations.length} findings across {providers.length} provider{providers.length !== 1 ? "s" : ""}
-            </p>
+        {/* Breadcrumb */}
+        <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2 text-xs text-gray-400">
+            <Link href="/" className="hover:text-gray-700 transition-colors">Credex</Link>
+            <span>/</span>
+            <span className="text-gray-600 font-medium truncate max-w-[200px]">{audit.title}</span>
           </div>
-
-          <Link
-            href="/"
-            className="shrink-0 inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] hover:bg-white/[0.07] transition-colors text-muted-foreground hover:text-foreground"
-          >
-            Run your own audit
-            <ExternalLink className="w-3 h-3" aria-hidden="true" />
-          </Link>
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold px-2.5 py-1 rounded-full border border-green-200 bg-green-50 text-green-700">
+              <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse" aria-hidden="true" />
+              Public Report
+            </span>
+            <Link
+              href="/"
+              className="shrink-0 inline-flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-colors text-gray-600 hover:text-gray-900 shadow-sm"
+            >
+              Run your own audit
+              <ExternalLink className="w-3 h-3" aria-hidden="true" />
+            </Link>
+          </div>
         </div>
 
-        {/* ── Hero stats ───────────────────────────────────────────────────── */}
+        {/* Report title */}
+        <div className="flex flex-col gap-1">
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-gray-900 leading-tight">{audit.title}</h1>
+          <p className="text-sm text-gray-400">
+            Generated{" "}
+            {new Date(audit.created_at).toLocaleDateString("en-US", {
+              month: "long", day: "numeric", year: "numeric",
+            })}
+          </p>
+        </div>
+
+        {/* Hero stats */}
         <ResultsHero audit={audit} />
 
-        {/* ── AI Summary ───────────────────────────────────────────────────── */}
+        {/* AI Summary */}
         {audit.ai_summary && (
-          <div className="rounded-2xl border border-white/[0.07] bg-card p-6 flex flex-col gap-3">
+          <div className="rounded-2xl bg-white p-6 flex flex-col gap-3"
+            style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.05)" }}
+          >
             <div className="flex items-center gap-2">
-              <Sparkles className="w-4 h-4 text-violet-400" />
-              <span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider">
-                AI Summary
-              </span>
+              <Sparkles className="w-4 h-4 text-violet-500" />
+              <span className="text-xs font-bold text-gray-400 uppercase tracking-wider">AI Summary</span>
             </div>
-            <p className="text-sm leading-relaxed text-foreground/90">{audit.ai_summary}</p>
+            <p className="text-sm leading-relaxed text-gray-700">{audit.ai_summary}</p>
           </div>
         )}
 
-        {/* ── Provider breakdown ───────────────────────────────────────────── */}
-        {providerSummary.length > 1 && (
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
-            {providerSummary.map(({ provider, count, annualSavings, color }) => (
-              <div
-                key={provider}
-                className="rounded-xl border border-white/[0.06] bg-card px-4 py-3 flex flex-col gap-1.5"
-              >
-                <div className="flex items-center gap-2">
-                  <span
-                    className={`w-2 h-2 rounded-full shrink-0 ${styles.dotBg}`}
-                    style={{ "--dot-color": color } as React.CSSProperties}
-                  />
-                  <span className="text-xs font-medium truncate">{provider}</span>
-                </div>
-                <span className="text-lg font-bold tabular-nums">{count}</span>
-                <span
-                  className={`text-xs font-medium tabular-nums ${styles.dotColor}`}
-                  style={{ "--dot-color": color } as React.CSSProperties}
-                >
-                  {formatCurrency(annualSavings)}/yr
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-
-        {/* ── Recommendations ──────────────────────────────────────────────── */}
+        {/* Recommendations */}
         {audit.recommendations.length === 0 ? (
-          <AlreadyOptimizedState
-            score={audit.optimization_score}
-            providerCount={providerCount}
-          />
+          <AlreadyOptimizedState score={audit.optimization_score} providerCount={providerCount} />
         ) : (
           <div className="flex flex-col gap-4">
             <div className="flex items-center justify-between gap-4">
-              <h2 className="text-base font-semibold">
+              <h2 className="text-base font-bold text-gray-900">
                 Recommendations
-                <span className="ml-2 text-sm font-normal text-muted-foreground">
+                <span className="ml-2 text-sm font-normal text-gray-400">
                   {audit.recommendations.length} total
                 </span>
               </h2>
@@ -195,11 +161,11 @@ export default async function ResultsPage({ params }: Props) {
           </div>
         )}
 
-        {/* ── Footer ───────────────────────────────────────────────────────── */}
-        <div className="border-t border-white/[0.06] pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-muted-foreground">
+        {/* Footer */}
+        <div className="border-t border-gray-100 pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-gray-400">
           <p>
             This report was generated by{" "}
-            <Link href="/" className="text-foreground hover:underline underline-offset-4">
+            <Link href="/" className="text-gray-700 hover:underline underline-offset-4">
               Credex
             </Link>
             {" "}and contains only sanitized, non-sensitive findings.
@@ -207,8 +173,8 @@ export default async function ResultsPage({ params }: Props) {
           <Link
             href="/"
             className={cn(
-              "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/[0.08]",
-              "bg-white/[0.04] hover:bg-white/[0.07] transition-colors text-foreground"
+              "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-gray-200",
+              "bg-white hover:bg-gray-50 transition-colors text-gray-700 shadow-sm"
             )}
           >
             Audit your AI spend
@@ -218,12 +184,10 @@ export default async function ResultsPage({ params }: Props) {
 
       </div>
 
-      {/* Lead capture — fires after 60% scroll depth */}
       <ResultsLeadCapture
         annualSavings={formatCurrency(audit.estimated_annual_savings)}
         recommendationCount={audit.recommendations.length}
       />
-
     </div>
   );
 }

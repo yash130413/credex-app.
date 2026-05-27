@@ -47,9 +47,9 @@ const recs = [
 ];
 
 const PRIORITY_STYLE = {
-  Critical: "text-red-400 bg-red-500/10 border-red-500/20",
-  High:     "text-orange-400 bg-orange-500/10 border-orange-500/20",
-  Medium:   "text-yellow-400 bg-yellow-500/10 border-yellow-500/20",
+  Critical: "text-red-600 bg-red-50 border-red-200",
+  High:     "text-orange-600 bg-orange-50 border-orange-200",
+  Medium:   "text-yellow-600 bg-yellow-50 border-yellow-200",
 };
 
 function RecCard({
@@ -66,7 +66,7 @@ function RecCard({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
       transition={{ duration: 0.45, ease: [0.21, 0.47, 0.32, 0.98], delay: index * 0.08 }}
-      className="rounded-2xl border border-white/[0.07] bg-white/[0.02] p-6 flex flex-col gap-5 hover:bg-white/[0.03] transition-colors"
+      className="rounded-2xl border border-gray-100 bg-white p-6 flex flex-col gap-5 card-shadow hover:card-shadow-hover transition-all duration-200 hover:-translate-y-0.5"
     >
       {/* Header */}
       <div className="flex items-start gap-4">
@@ -78,44 +78,44 @@ function RecCard({
         </div>
         <div className="flex-1 min-w-0 flex flex-col gap-2">
           <div className="flex items-center gap-2 flex-wrap">
-            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${PRIORITY_STYLE[rec.priority]}`}>
+            <span className={`text-[10px] font-semibold px-2 py-0.5 rounded-full border ${PRIORITY_STYLE[rec.priority]}`}>
               {rec.priority}
             </span>
-            <span className="text-[10px] text-muted-foreground font-medium">{rec.provider}</span>
-            <span className="text-[10px] text-muted-foreground">· {rec.affectedUsers} users affected</span>
+            <span className="text-[10px] text-gray-400 font-medium">{rec.provider}</span>
+            <span className="text-[10px] text-gray-400">· {rec.affectedUsers} users affected</span>
           </div>
-          <p className="text-sm font-medium leading-snug">{rec.title}</p>
+          <p className="text-sm font-semibold text-gray-900 leading-snug">{rec.title}</p>
         </div>
       </div>
 
       {/* Description */}
-      <p className="text-sm text-muted-foreground leading-relaxed">{rec.description}</p>
+      <p className="text-sm text-gray-500 leading-relaxed">{rec.description}</p>
 
       {/* Metrics row */}
-      <div className="flex items-center gap-4 pt-1 border-t border-white/[0.05]">
+      <div className="flex items-center gap-4 pt-1 border-t border-gray-100">
         <div className="flex flex-col gap-0.5">
-          <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Annual savings</span>
-          <span className="text-base font-semibold text-emerald-400 tabular-nums">
+          <span className="text-[10px] text-gray-400 uppercase tracking-wider">Annual savings</span>
+          <span className="text-base font-bold text-green-600 tabular-nums">
             ${rec.annualSavings.toLocaleString()}
           </span>
         </div>
         <div className="flex flex-col gap-0.5">
-          <span className="text-[10px] text-muted-foreground uppercase tracking-wider">Monthly</span>
-          <span className="text-sm font-medium tabular-nums">${rec.monthlySavings}/mo</span>
+          <span className="text-[10px] text-gray-400 uppercase tracking-wider">Monthly</span>
+          <span className="text-sm font-semibold text-gray-700 tabular-nums">${rec.monthlySavings}/mo</span>
         </div>
         <div className="flex flex-col gap-1.5 ml-auto">
           <div className="flex items-center gap-1.5">
-            <ShieldCheck className="w-3 h-3 text-indigo-400" aria-hidden="true" />
-            <span className="text-[10px] text-muted-foreground">Confidence</span>
+            <ShieldCheck className="w-3 h-3 text-green-500" aria-hidden="true" />
+            <span className="text-[10px] text-gray-400">Confidence</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-20 h-1 rounded-full bg-white/[0.06] overflow-hidden">
+            <div className="w-20 h-1.5 rounded-full bg-gray-100 overflow-hidden">
               <div
-                className="h-full rounded-full bg-indigo-500"
+                className="h-full rounded-full bg-green-500"
                 style={{ width: `${rec.confidence}%` }}
               />
             </div>
-            <span className="text-[10px] text-muted-foreground tabular-nums">{rec.confidence}%</span>
+            <span className="text-[10px] text-gray-400 tabular-nums">{rec.confidence}%</span>
           </div>
         </div>
       </div>
@@ -125,16 +125,16 @@ function RecCard({
 
 export function ExampleRecommendations() {
   return (
-    <section className="py-32 px-5 border-t border-white/[0.06]">
+    <section className="py-32 px-5 border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
         <FadeIn className="mb-16">
-          <p className="text-xs text-indigo-400 uppercase tracking-widest font-medium mb-4">
+          <p className="text-xs text-green-600 uppercase tracking-widest font-semibold mb-4">
             Example findings
           </p>
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance max-w-xl">
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-balance max-w-xl text-gray-900">
             The kind of recommendations Credex surfaces
           </h2>
-          <p className="mt-4 text-muted-foreground text-base max-w-lg leading-relaxed">
+          <p className="mt-4 text-gray-500 text-lg max-w-lg leading-relaxed">
             Every recommendation includes a confidence score, affected user count, and
             the exact reasoning — so your finance team can act on it without a follow-up call.
           </p>

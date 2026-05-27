@@ -42,7 +42,8 @@ export function SavingsBreakdownChart({ recommendations }: Props) {
       initial={{ opacity: 0, y: 16 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, ease: [0.21, 0.47, 0.32, 0.98], delay: 0.2 }}
-      className="rounded-2xl border border-white/[0.07] bg-card p-6 flex flex-col gap-5"
+      className="rounded-2xl bg-white p-6 flex flex-col gap-5"
+      style={{ boxShadow: "0 1px 3px rgba(0,0,0,0.05), 0 4px 16px rgba(0,0,0,0.04)", border: "1px solid rgba(0,0,0,0.05)" }}
     >
       <div className="flex items-center justify-between">
         <div>
@@ -64,26 +65,28 @@ export function SavingsBreakdownChart({ recommendations }: Props) {
 
       <ResponsiveContainer width="100%" height={200}>
         <BarChart data={data} margin={{ top: 4, right: 4, left: -20, bottom: 0 }} barSize={32}>
-          <CartesianGrid strokeDasharray="3 3" stroke="rgba(255,255,255,0.04)" vertical={false} />
+          <CartesianGrid strokeDasharray="3 3" stroke="rgba(0,0,0,0.06)" vertical={false} />
           <XAxis
             dataKey="provider"
-            tick={{ fontSize: 11, fill: "rgba(255,255,255,0.4)" }}
+            tick={{ fontSize: 11, fill: "#94a3b8" }}
             tickLine={false}
             axisLine={false}
           />
           <YAxis
-            tick={{ fontSize: 11, fill: "rgba(255,255,255,0.4)" }}
+            tick={{ fontSize: 11, fill: "#94a3b8" }}
             tickLine={false}
             axisLine={false}
             tickFormatter={(v) => `$${v}`}
           />
           <Tooltip
-            cursor={{ fill: "rgba(255,255,255,0.03)" }}
+            cursor={{ fill: "rgba(0,0,0,0.04)" }}
             contentStyle={{
-              background: "oklch(0.16 0.015 277)",
-              border: "1px solid rgba(255,255,255,0.08)",
+              background: "#ffffff",
+              border: "1px solid #e2e8f0",
               borderRadius: "10px",
               fontSize: 12,
+              color: "#0f1117",
+              boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
             }}
             formatter={(v) => [formatCurrency(Number(v)), "Monthly savings"]}
           />

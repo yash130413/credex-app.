@@ -27,12 +27,13 @@ function Card({
       whileTap={shouldAnimate ? { scale: 0.997 } : {}}
       transition={{ duration: 0.2, ease: EASE }}
       className={cn(
-        "group/card flex flex-col gap-4 overflow-hidden rounded-xl bg-card py-4 text-sm text-card-foreground ring-1 ring-foreground/10",
-        "transition-shadow duration-200",
-        hover && "hover:shadow-[0_4px_24px_-4px_oklch(0_0_0/0.3)] hover:ring-foreground/[0.15]",
+        "group/card flex flex-col gap-4 overflow-hidden rounded-2xl bg-white py-4 text-sm text-card-foreground border border-gray-100",
+        "transition-all duration-200",
+        hover && "hover:shadow-md hover:shadow-black/[0.06] hover:-translate-y-0.5 hover:border-gray-200",
         "has-data-[slot=card-footer]:pb-0 has-[>img:first-child]:pt-0",
         "data-[size=sm]:gap-3 data-[size=sm]:py-3 data-[size=sm]:has-data-[slot=card-footer]:pb-0",
-        "*:[img:first-child]:rounded-t-xl *:[img:last-child]:rounded-b-xl",
+        "*:[img:first-child]:rounded-t-2xl *:[img:last-child]:rounded-b-2xl",
+        "shadow-sm shadow-black/[0.04]",
         className
       )}
       {...(props as React.ComponentProps<typeof motion.div>)}

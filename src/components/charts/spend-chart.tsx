@@ -42,7 +42,14 @@ export function SpendChart({ data }: { data: SpendChartData[] }) {
             <YAxis tick={{ fontSize: 12 }} tickLine={false} axisLine={false} tickFormatter={(v) => `$${v}`} />
             <Tooltip
               formatter={(value) => [`$${value}`, undefined]}
-              contentStyle={{ fontSize: 12, borderRadius: 8 }}
+              contentStyle={{
+                fontSize: 12,
+                borderRadius: 8,
+                background: "#ffffff",
+                border: "1px solid #e2e8f0",
+                color: "#0f1117",
+                boxShadow: "0 4px 16px rgba(0,0,0,0.08)",
+              }}
             />
             <Legend iconType="circle" iconSize={8} wrapperStyle={{ fontSize: 12 }} />
             {AREAS.map(({ key, color, label }) => (

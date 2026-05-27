@@ -33,7 +33,7 @@ export function SignupForm() {
   };
 
   return (
-    <Card>
+    <Card className="shadow-lg shadow-black/[0.06] border-gray-100">
       <CardContent className="pt-6">
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-1.5">

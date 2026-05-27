@@ -48,37 +48,37 @@ const features = [
 
 export function Features() {
   return (
-    <section id="features" className="py-32 px-5 border-t border-white/[0.06]">
+    <section id="features" className="py-32 px-5 border-t border-gray-100">
       <div className="max-w-6xl mx-auto">
         <FadeIn className="mb-16">
-          <p className="text-xs text-indigo-400 uppercase tracking-widest font-medium mb-4">
+          <p className="text-xs text-green-600 uppercase tracking-widest font-semibold mb-4">
             Platform
           </p>
-          <h2 className="text-3xl sm:text-4xl font-semibold tracking-tight text-balance max-w-xl">
+          <h2 className="text-4xl sm:text-5xl font-bold tracking-tight text-balance max-w-xl text-gray-900">
             Everything your team needs to control AI spend
           </h2>
-          <p className="mt-4 text-muted-foreground text-base max-w-lg leading-relaxed">
+          <p className="mt-4 text-gray-500 text-lg max-w-lg leading-relaxed">
             Built for engineering and finance teams who need visibility without complexity.
           </p>
         </FadeIn>
 
-        <StaggerChildren className="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/[0.06] rounded-2xl overflow-hidden border border-white/[0.06]">
+        <StaggerChildren className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {features.map((f) => (
             <StaggerItem key={f.title}>
-              <div className="bg-[#0a0a0f] p-7 flex flex-col gap-4 h-full hover:bg-white/[0.02] transition-colors group">
+              <div className="bg-white rounded-2xl border border-gray-100 p-7 flex flex-col gap-4 h-full card-shadow hover:card-shadow-hover transition-all duration-200 hover:-translate-y-0.5 group">
                 <div className="flex items-start justify-between gap-2">
-                  <div className="w-9 h-9 rounded-lg bg-indigo-500/10 border border-indigo-500/20 flex items-center justify-center shrink-0">
-                    <f.icon className="w-4 h-4 text-indigo-400" aria-hidden="true" />
+                  <div className="w-10 h-10 rounded-xl bg-green-50 border border-green-100 flex items-center justify-center shrink-0 group-hover:bg-green-100 transition-colors">
+                    <f.icon className="w-4.5 h-4.5 text-green-600" aria-hidden="true" />
                   </div>
                   {f.soon && (
-                    <span className="text-[10px] font-medium uppercase tracking-wider px-2 py-0.5 rounded border border-white/[0.08] text-muted-foreground shrink-0">
+                    <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded-full border border-gray-200 text-gray-400 bg-gray-50 shrink-0">
                       Soon
                     </span>
                   )}
                 </div>
                 <div className="flex flex-col gap-2">
-                  <h3 className="font-medium text-sm tracking-tight">{f.title}</h3>
-                  <p className="text-sm text-muted-foreground leading-relaxed">{f.description}</p>
+                  <h3 className="font-semibold text-gray-900 tracking-tight">{f.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{f.description}</p>
                 </div>
               </div>
             </StaggerItem>

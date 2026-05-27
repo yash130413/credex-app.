@@ -35,7 +35,7 @@ export function LoginForm() {
   };
 
   return (
-    <Card hover={false}>
+    <Card hover={false} className="shadow-lg shadow-black/[0.06] border-gray-100">
       <CardContent className="pt-6">
         <form onSubmit={handleSubmit(onSubmit)}>
           <AnimateList className="flex flex-col gap-4" stagger={0.07}>
