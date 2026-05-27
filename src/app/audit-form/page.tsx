@@ -84,9 +84,9 @@ export default function AuditFormPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
+          title: `AI Audit - ${new Date().toLocaleDateString()}`,
+          organizationId: "00000000-0000-0000-0000-000000000000",
           workspaces,
-          teamSize: parseInt(teamSize) || 10,
-          useCase: useCase || "Mixed",
         }),
       });
 
